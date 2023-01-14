@@ -87,19 +87,10 @@ static void findTarget(){
 
 |Type | 문제 | 제목 | 유형 | 등급|
 |--- | --- | --- | --- | ---|
-| BOJ  | 1920  | [수 찾기]        | 이분탐색    | S4   |
-| BOJ  | 14501 | [퇴사](https://www.acmicpc.net/problem/14501)            | 브루트포스  | S3   |
-| BOJ  | 3190  | [뱀](https://www.acmicpc.net/problem/3190)               | 덱/큐       | G4   |
-| BOJ  | 2667  | [단지 번호 붙이기](https://www.acmicpc.net/problem/2667) | 그래프 탐색 | S1   |
-
-### 🏃🏻‍♂️week 2
-
-|Type | 문제 | 제목 | 유형 | 등급|
-|--- | --- | --- | --- | ---|
-|BOJ| 13335| [트럭](https://www.acmicpc.net/problem/13335) | 자료구조 | S1|
-|BOJ | 2792| [보석 상자](https://www.acmicpc.net/problem/2792)| 자료구조 | S2|
-|PG | Summer/Winter Coding | [점프와 순간 이동](https://school.programmers.co.kr/learn/courses/30/lessons/12980)| - | LV2|
-|PG | 2018 KAKAO BLIND| [방금그곡](https://school.programmers.co.kr/learn/courses/30/lessons/17683)| - | LV2|
+| BOJ | 1920 | [수 찾기](https://www.acmicpc.net/problem/1920) | 이분탐색 | S4 |
+| BOJ | 14501 | [퇴사](https://www.acmicpc.net/problem/14501) | 브루트포스 | S3 |
+| BOJ | 3190 | [뱀](https://www.acmicpc.net/problem/3190) | 덱/큐 | G4 |
+| BOJ | 2667 | [단지 번호 붙이기](https://www.acmicpc.net/problem/2667) | 그래프 탐색 | S1 |
 
 
 
