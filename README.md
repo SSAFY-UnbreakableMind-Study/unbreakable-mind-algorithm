@@ -27,26 +27,26 @@ Remove : 파일 삭제
 - **문제를 풀고 난 뒤**
 
 ```jsx
-git commit -m "Add : BOJ 13460 G1 구슬 탈출 2"
+git commit -m "Add : BOJ_7916_P5_CrossSpider"
 ```
 
 - **이미 커밋한 코드 수정 시**
 
 ```jsx
-git commit -m "Fix : BOJ 13460 G1 구슬 탈출 2, 탐색 방법 수정"
+git commit -m "Fix : BOJ_7916_P5_CrossSpider, 탐색 방법 수정"
 ```
 
 - **파일 삭제 시**
 
 ```jsx
-git commit -m "Remove : 구슬 탈출 2"
+git commit -m "Remove : BOJ_7916_P5_CrossSpider.java"
 ```
 
 - **PR 제목은 다음과 같이 통일합니다.**
   - **이름 : 문제플랫폼 문제번호 문제등급 문제이름**
 
 ```jsx
-WONJOON : BOJ 13460 G1 구슬 탈출2
+유승민 : BOJ_7916_P5_CrossSpider.java
 ```
 
 - **PR 내용은 코드 리뷰로 활용해주세요**
@@ -60,7 +60,7 @@ WONJOON : BOJ 13460 G1 구슬 탈출2
   - **플랫폼_문제번호_문제등급_문제이름.확장자**
 
 ```jsx
-BOJ_7916_P5_CrossSpider.java;
+BOJ_7916_P5_CrossSpider.java
 ```
 
 
