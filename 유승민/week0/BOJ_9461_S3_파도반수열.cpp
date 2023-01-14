@@ -4,8 +4,6 @@
 using namespace std;
 using int64 = int64_t;
 
-
-
 int main() {
 	fastio;
 	int64 N, M, dp[101] = { 0, 1, 1, 1, 2, 2, 3, 4, 5, 7, 9, 12, 16, 21, 28, 37, 49 };
