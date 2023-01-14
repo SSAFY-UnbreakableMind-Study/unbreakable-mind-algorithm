@@ -118,7 +118,7 @@ git push origin main"
 
 <br/>
  
-- **Leave a comment 는 README.md 참고하여 형식에 맞게 코드 리뷰용으로 작성**
+- **Leave a comment 는 Pull_Request_Template.md 참고하여 형식에 맞게 코드 리뷰용으로 작성**
 - **모든 작성이 끝났으면 Create pull request 클릭**
 
 
