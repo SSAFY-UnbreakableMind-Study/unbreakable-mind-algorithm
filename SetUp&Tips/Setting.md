@@ -64,11 +64,12 @@ git remote add origin <주소>
       ㄴ BOJ_7916_P5_CrossSpider.java;
 ```
 
+<br/>
 
 
 
-
-
+## ✔문제 풀이후 Commit & Pull Request 하기
+- **git remote -v 명령어로 리모트 저장소 확인**
 
 
 
