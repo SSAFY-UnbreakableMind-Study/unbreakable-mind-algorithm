@@ -77,10 +77,10 @@ git add .
 
 <br/>
 
+- **git commit -m "이곳은 README.md 참고하여 작성"**
  ```jsx
 git commit -m "Add : BOJ_7916_P5_CrossSpider"
 ```
-- **git commit -m "이곳은 README.md 참고하여 작성"**
 
 <br/>
 
