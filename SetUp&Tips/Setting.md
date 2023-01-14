@@ -10,7 +10,7 @@
 - SSAFY_Algorithm 폴더 안에서 마우스 우클릭 Code(으)로 열기 실행
 - Ctrl + J 로 TERMINAL 창 실행
 - 원격 저장소가 연결되어있는지 확인
-- ```jsx
+ ```jsx
 git remote -v 
 ```
 
