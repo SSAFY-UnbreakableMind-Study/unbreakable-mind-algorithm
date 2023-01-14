@@ -40,7 +40,7 @@ git commit -m "Fix : BOJ_7916_P5_CrossSpider, 탐색 방법 수정"
 - **파일 삭제 시**
 
 ```jsx
-git commit -m "Remove : BOJ_7916_P5_CrossSpider.java"
+git commit -m "Remove : BOJ_7916_P5_CrossSpider"
 ```
 
 - **PR 제목은 다음과 같이 통일합니다.**
