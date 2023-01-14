@@ -71,9 +71,9 @@ git remote add origin <주소>
 ## ✔문제 풀이후 Commit 하기
 - **문제 풀이 후 Commit 하기전 자신의 깃허브 Fork된 레포지터리로 이동**
 - **<>Code 밑에있는 Sync fork 클릭**
-- 
-- <br/>
-- 
+
+<br/>
+
 - **Update branch가 활성화 되어있을시 클릭**
 - **그 후 vscode로 이동하여 git pull origin main 명령어 실행**
 
