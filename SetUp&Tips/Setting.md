@@ -22,7 +22,7 @@ git remote -v
 <br/>
 
 - **명령어 실행 후 아무것도 뜨지 않을시 다음단계 진행**
-- **만약 연결되있는 저장소가 있다면 git remote remove <name> 명령어로 연결 해제**
+- **만약 연결되있는 저장소가 있다면 git remote remove 명령어로 연결 해제**
 
  ```jsx
 git remote remove <name>
