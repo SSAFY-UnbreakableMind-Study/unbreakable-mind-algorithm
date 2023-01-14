@@ -11,7 +11,7 @@
 
 ## ✔Fork된 레포지터리 연결
 - **적당한 곳에 Unbreakable_Mind_Algorithm 폴더 생성**
-- **SSAFY_Algorithm 폴더 안에서 마우스 우클릭 Code(으)로 열기 실행**
+- **Unbreakable_Mind_Algorithm 폴더 안에서 마우스 우클릭 Code(으)로 열기 실행**
 - **Ctrl + J 로 TERMINAL 창 실행**
 - **git remote -v 명령어로 리모트 저장소 확인**
 
@@ -22,7 +22,7 @@ git remote -v
 <br/>
 
 - **명령어 실행 후 아무것도 뜨지 않을시 다음단계 진행**
-- **만약 연결되있는 저장소가 있다면 git remote remove 명령어로 연결 해제**
+- **만약 연결되있는 저장소가 있다면 git remote remove <name> 명령어로 연결 해제**
 
  ```jsx
 git remote remove <name>
