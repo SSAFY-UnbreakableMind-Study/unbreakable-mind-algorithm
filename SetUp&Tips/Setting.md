@@ -19,12 +19,16 @@
 git remote -v 
 ```
 
+<br/>
+
 - **명령어 실행 후 아무것도 뜨지 않을시 다음단계 진행**
 - **만약 연결되있는 저장소가 있다면 git remote remove 명령어로 연결 해제**
 
  ```jsx
 git remote remove <name>
 ```
+
+<br/>
 
 - **연결 해제 확인 후 위에서 복사한 web URL 주소를 이용, git clone <주소> .  명령어 실행**
 - **<주소> 뒤에 띄어쓰기 + . 이 들어감에 유의하자**
@@ -33,11 +37,15 @@ git remote remove <name>
 git remote add origin <주소> .
 ```
 
+<br/>
+
 - **git remote -v 명령어로 리모트 저장소 확인**
 
  ```jsx
 git remote add origin <주소>
 ```
+
+<br/>
 
 - **origin https://github.com/블라블라 가 뜨면 다음단계 진행**
 
