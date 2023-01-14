@@ -58,10 +58,10 @@ git remote add origin <주소>
 [예시]
 유승민
    ㄴ week1
-      ㄴ BOJ_7916_P5_CrossSpider.java;
+      ㄴ BOJ_7916_P5_CrossSpider.java
 김싸피
    ㄴ week1
-      ㄴ BOJ_7916_P5_CrossSpider.java;
+      ㄴ BOJ_7916_P5_CrossSpider.java
 ```
 
 <br/>
@@ -69,8 +69,19 @@ git remote add origin <주소>
 
 
 ## ✔문제 풀이후 Commit & Pull Request 하기
-- **git remote -v 명령어로 리모트 저장소 확인**
+- **문제 풀이 후 Commit 을 위해 차례대로 명령어 실행**
 
+ ```jsx
+git add .
+```
 
+<br/>
+
+ ```jsx
+git commit -m "Add : BOJ_7916_P5_CrossSpider"
+```
+- **git commit -m "이곳은 README.md 참고하여 작성"**
+
+<br/>
 
 
