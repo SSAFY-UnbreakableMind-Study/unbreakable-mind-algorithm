@@ -10,34 +10,21 @@
 - **SSAFY_Algorithm 폴더 안에서 마우스 우클릭 Code(으)로 열기 실행**
 - **Ctrl + J 로 TERMINAL 창 실행**
 - **git remote -v 명령어로 리모트 저장소 확인**
+
  ```jsx
 git remote -v 
 ```
-- 명령어 실행 후 아무것도 뜨지 않을시 다음단계 진행 
-- 만약 연결되있는 저장소가 있다면 git remote remove 명령어로 연결 해제
+
+- **명령어 실행 후 아무것도 뜨지 않을시 다음단계 진행**
+- **만약 연결되있는 저장소가 있다면 git remote remove 명령어로 연결 해제**
+
  ```jsx
 git remote remove <name>
 ```
 
+- **연결 해제 확인 후 위에서 복사한 web URL 주소를 이용, git remote add origin <주소>  명령어 실행**
 
-## 풀이
-
-풀이 방식 소개
-
-~~~java
-/*풀이 코드 작성*/
-~~~
-
-## 소스코드
-~~~java
-/*
-소스코드 작성
-*/
-~~~
-
-## 결과 
-
-| 메모리  | 시간 |
-|----|----|
-| 메모리정보| 시간ms|
+ ```jsx
+git remote add origin <주소>
+```
 
