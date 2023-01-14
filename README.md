@@ -47,7 +47,7 @@ git commit -m "Remove : BOJ_7916_P5_CrossSpider"
   - **이름 : 문제플랫폼 문제번호 문제등급 문제이름**
 
 ```jsx
-유승민 : BOJ_7916_P5_CrossSpider.java
+유승민 : BOJ_7916_P5_CrossSpider
 ```
 
 - **PR 내용은 코드 리뷰로 활용해주세요**
