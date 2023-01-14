@@ -5,6 +5,10 @@
 - **가운데 초록색 <>Code 클릭**
 - **https로 시작하는 web URL 복사**
 
+<br/>
+
+
+
 ## ✔Fork된 레포지터리 연결
 - **적당한 곳에 SSAFY_Algorithm 폴더 생성**
 - **SSAFY_Algorithm 폴더 안에서 마우스 우클릭 Code(으)로 열기 실행**
@@ -36,6 +40,22 @@ git remote add origin <주소>
 ```
 
 - **origin https://github.com/블라블라 가 뜨면 다음단계 진행**
+
+<br/>
+
+
+
+## ✔형식에 맞게 폴더 생성후 문제 풀이
+```jsx
+[예시]
+유승민
+   ㄴ week1
+      ㄴ BOJ_7916_P5_CrossSpider.java;
+김싸피
+   ㄴ week1
+      ㄴ BOJ_7916_P5_CrossSpider.java;
+```
+
 
 
 
