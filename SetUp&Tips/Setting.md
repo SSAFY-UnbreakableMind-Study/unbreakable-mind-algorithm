@@ -107,6 +107,26 @@ git push origin main"
 
 
 ## ✔Commit 후 Pull Request(PR) 하기
+- **Commit 후 자신의 깃허브 Fork된 레포지터리로 이동**
+- **<>Code 밑에있는 Contribute 클릭**
+- **Open pull request 클릭**
+- **Title은 README.md 참고하여 형식에 맞게 작성**
+
+```jsx
+유승민 : BOJ_7916_P5_CrossSpider
+```
+
+<br/>
+ 
+- **Leave a comment 는 README.md 참고하여 형식에 맞게 코드 리뷰용으로 작성**
+
+
+
+
+
+
+
+
 
 
 
