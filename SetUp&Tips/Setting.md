@@ -143,7 +143,6 @@ for (int64 i = 17; i < 101; ++i) {
 
 ## 소스코드
 ~~~java
-/*
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->ios::sync_with_stdio(0); cout.tie(0); setvbuf(stdout, nullptr, _IOFBF, BUFSIZ);
 #define INF 109876543210
@@ -167,7 +166,6 @@ int main() {
 
 	return EXIT_SUCCESS;
 }
-*/
 ~~~
 
 ## 결과 
