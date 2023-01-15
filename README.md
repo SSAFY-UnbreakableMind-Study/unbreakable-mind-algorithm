@@ -44,7 +44,7 @@ git commit -m "유승민 : BOJ_7916_P5_CrossSpider_Remove"
 ```
 
 - **PR 제목은 다음과 같이 통일합니다.**
-  - **이름 : 문제플랫폼 문제번호 문제등급 문제이름_분류(Add or Fix or Remove) 중 하나**
+  - **이름 : 문제플랫폼_문제번호_문제등급_문제이름_분류(Add or Fix or Remove) 중 하나**
 
 ```jsx
 유승민 : BOJ_7916_P5_CrossSpider_Add
