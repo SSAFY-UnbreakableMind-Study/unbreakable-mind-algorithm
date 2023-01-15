@@ -125,21 +125,28 @@ git push origin main"
 
 - **Leave a comment 예시**
 
-## BOJ 9461 파도반수열
+## BOJ_9251_G5_LCS
 - DP
-- https://www.acmicpc.net/problem/9461
+- https://www.acmicpc.net/problem/9251
 
 
 
 ## 풀이
 
-i번째 삼각형은 i-1 번째 삼각형과 i - 5 번째 삼각형을 더하여 구할 수 있다
+해당 문제는 2차원 배열을 활용해 풀 수 있다.
+2차원 배열을 돌면서 dp[i][j] 번째 값을 dp[i - 1][j] 과 dp[i][j - 1] 를 비교하여 큰값으로 초기화 해준다.
+추가로 string b[i - 1] string a[j - 1] 값이 같을 경우 
+dp[i - 1][j - 1] 까지 비교하여 큰값으로 dp[i][j]를 가장 큰 값으로 초기화 해준다.
 
 ~~~java
-for (int64 i = 17; i < 101; ++i) {
-		dp[i] = dp[i - 1] + dp[i - 5];
+for (int64 i = 1; i <= b.length(); ++i) {
+		for (int64 j = 1; j <= a.length(); ++j) {
+			dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+			if (b[i - 1] == a[j - 1]) dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + 1);
+		}
 	}
 ~~~
+
 
 
 ## 소스코드
@@ -149,21 +156,27 @@ for (int64 i = 17; i < 101; ++i) {
 #define INF 109876543210
 using namespace std;
 using int64 = int64_t;
+//BOJ_9251_G5_LCS
+//5940KB, 4ms
+
+int dp[1001][1001]; // dp 배열
+string a, b; //문자열 a,b
 
 int main() {
 	fastio;
-	int64 N, M, dp[101] = { 0, 1, 1, 1, 2, 2, 3, 4, 5, 7, 9, 12, 16, 21, 28, 37, 49 };
-	cin >> N;
 
-	// i 번째 삼각형을 i - 1 번째 삼각형화 i - 5 번째 삼각형을 더한 값으로 갱신한다.
-	for (int64 i = 17; i < 101; ++i) {
-		dp[i] = dp[i - 1] + dp[i - 5];
+	cin >> a >> b;	//a,b 입력받기
+
+	//dp[i][j] 칸의 값은 dp[i - 1][j] 와 dp[i][j - 1] 중 큰것으로 초기화
+	//두 문자가 같은 칸의 경우 추가로 dp[i - 1][j - 1] + 1 까지 비교하여 초기화
+	for (int64 i = 1; i <= b.length(); ++i) {
+		for (int64 j = 1; j <= a.length(); ++j) {
+			dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+			if (b[i - 1] == a[j - 1]) dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + 1);
+		}
 	}
 
-	for (int64 i = 0; i < N; ++i) {
-		cin >> M;
-		cout << dp[M] << "\n";
-	}
+	cout << dp[b.length()][a.length()]; // 초기화 끝난 dp 출력
 
 	return EXIT_SUCCESS;
 }
@@ -173,8 +186,4 @@ int main() {
 
 | 메모리  | 시간 |
 |----|----|
-| 2020KB| 0ms|
-
-
-
-
+| 5940KB| 4ms|
