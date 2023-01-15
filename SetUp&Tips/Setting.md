@@ -122,7 +122,8 @@ git push origin main"
 - **모든 작성이 끝났으면 Create pull request 클릭**
 
 <br/>
--**예시**
+
+- **Leave a comment 예시**
 
 ## BOJ 9461 파도반수열
 - DP
