@@ -84,6 +84,13 @@ static void findTarget(){
 
 
 
+### 🏃🏻‍♂️week 0
+|Type | 문제 | 제목 | 유형 | 등급|
+|--- | --- | --- | --- | ---|
+| BOJ | 9251 | [LCS](https://www.acmicpc.net/problem/9251) | DP | G5 |
+| BOJ | 9461 | [파도반 수열](https://www.acmicpc.net/problem/9461) | DP | S3 |
+
+
 ### 🏃🏻‍♂️week 1
 
 |Type | 문제 | 제목 | 유형 | 등급|
