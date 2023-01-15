@@ -28,26 +28,26 @@ Remove : 파일 삭제
 - **문제를 풀고 난 뒤**
 
 ```jsx
-git commit -m "Add : BOJ_7916_P5_CrossSpider"
+git commit -m "유승민 : BOJ_7916_P5_CrossSpider_Add
 ```
 
 - **이미 커밋한 코드 수정 시**
 
 ```jsx
-git commit -m "Fix : BOJ_7916_P5_CrossSpider, 탐색 방법 수정"
+git commit -m "유승민 : BOJ_7916_P5_CrossSpider_Fix_탐색 방법 수정"
 ```
 
 - **파일 삭제 시**
 
 ```jsx
-git commit -m "Remove : BOJ_7916_P5_CrossSpider"
+git commit -m "유승민 : BOJ_7916_P5_CrossSpider_Remove"
 ```
 
 - **PR 제목은 다음과 같이 통일합니다.**
-  - **이름 : 문제플랫폼 문제번호 문제등급 문제이름**
+  - **이름 : 문제플랫폼 문제번호 문제등급 문제이름_분류(Add or Fix or Remove) 중 하나**
 
 ```jsx
-유승민 : BOJ_7916_P5_CrossSpider
+유승민 : BOJ_7916_P5_CrossSpider_Add
 ```
 
 - **PR 내용은 코드 리뷰로 활용해주세요**
