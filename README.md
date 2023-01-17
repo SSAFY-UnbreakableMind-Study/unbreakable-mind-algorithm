@@ -95,10 +95,9 @@ static void findTarget(){
 
 |Type | 문제 | 제목 | 유형 | 등급|
 |--- | --- | --- | --- | ---|
-| BOJ | 1920 | [수 찾기](https://www.acmicpc.net/problem/1920) | 이분탐색 | S4 |
-| BOJ | 14501 | [퇴사](https://www.acmicpc.net/problem/14501) | 브루트포스 | S3 |
-| BOJ | 3190 | [뱀](https://www.acmicpc.net/problem/3190) | 덱/큐 | G4 |
-| BOJ | 2667 | [단지 번호 붙이기](https://www.acmicpc.net/problem/2667) | 그래프 탐색 | S1 |
+| BOJ | 1012 | [유기농 배추](https://www.acmicpc.net/problem/1012) | 그래프 탐색 | S2 |
+| BOJ | 14502 | [연구소](https://www.acmicpc.net/problem/14502) | 그래프 탐색 | G4 |
+
 
 
 
