@@ -1,6 +1,6 @@
 ## BOJ_1012_S2_유기농 배추
 - 그래프 탐색
-- https://www.acmicpc.net/problem/14502
+- https://www.acmicpc.net/problem/1012
 
 
 
