@@ -1,23 +1,35 @@
-## BOJ_9251_G5_LCS
-- DP
-- https://www.acmicpc.net/problem/9251
+## BOJ_1012_S2_유기농 배추
+- 그래프 탐색
+- https://www.acmicpc.net/problem/1012
 
 
 
 ## 풀이
 
-해당 문제는 2차원 배열을 활용해 풀 수 있다. <br/>
-2차원 배열을 돌면서 dp[i][j] 번째 값을 dp[i - 1][j] 과 dp[i][j - 1] 를 비교하여 큰값으로 초기화 해준다. <br/>
-추가로 string b[i - 1] string a[j - 1] 값이 같을 경우  <br/>
-dp[i - 1][j - 1] 까지 비교하여 가장 큰 값으로 dp[i][j]를 초기화 해준다. <br/>
+배추의 위치를 벡터에 집어넣은 후, <br/>
+벡터에서 하나씩 꺼내 BFS탐색을 실행하였습니다. <br/>
+이때 이미 탐색된 배추일 경우 BFS탐색을 스킵합니다. <br/>
+이때 BFS 함수가 실행된 횟수를 정답으로 처리하였습니다. <br/>
 
 ~~~java
-for (int64 i = 1; i <= b.length(); ++i) {
-		for (int64 j = 1; j <= a.length(); ++j) {
-			dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
-			if (b[i - 1] == a[j - 1]) dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + 1);
+//배추위치를 벡터에 저장
+for (int i = 0; i < bg; ++i) {
+			int a, b;
+			cin >> a >> b;
+
+			_map[a][b] = 1; //배추 위치
+			v.push_back({ a,b }); // 벡터에 저장
 		}
-	}
+
+		//배추가 안전한지 확인하는 부분
+		for (auto iter : v) {
+			if (_map[iter.first][iter.second]) {
+				_map[iter.first][iter.second] = 0;
+				q.push({ iter.first, iter.second });
+				ans++;
+				BFS();
+			}
+		}
 ~~~
 
 
@@ -29,27 +41,73 @@ for (int64 i = 1; i <= b.length(); ++i) {
 #define INF 109876543210
 using namespace std;
 using int64 = int64_t;
-//BOJ_9251_G5_LCS
-//5940KB, 4ms
+//BOJ_1012_S2_유기농 배추
+//2168KB, 0ms
 
-int dp[1001][1001]; // dp 배열
-string a, b; //문자열 a,b
+int N, M, bg, ans, _map[51][51]; // 맵크기, 배추 개수, 정답, 맵
+int dx[4] = { -1, 0, 1, 0 }, dy[4] = { 0, 1, 0, -1 }; //방향
+vector < pair<int, int>> v;
+queue<pair<int, int>> q;
+
+//다음 위치가 유효한가?
+inline bool isValid(int x, int y) {
+	return (x >= 0 && x < N && y >= 0 && y < M);
+}
+
+//단순 BFS 탐색
+inline void BFS() {
+	while (!q.empty()) {
+		int x = q.front().first;
+		int y = q.front().second;
+
+		q.pop();
+
+		for (int i = 0; i < 4; ++i) {
+			int next_x = x + dx[i];
+			int next_y = y + dy[i];
+
+			if (isValid(next_x, next_y)) {
+				if (_map[next_x][next_y]) {
+					_map[next_x][next_y] = 0;
+					q.push({ next_x, next_y });
+				}
+			}
+		}
+	}
+}
 
 int main() {
 	fastio;
 
-	cin >> a >> b;	//a,b 입력받기
+	int T;
+	cin >> T;
+	for (int t = 0; t < T; ++t) {
 
-	//dp[i][j] 칸의 값은 dp[i - 1][j] 와 dp[i][j - 1] 중 큰것으로 초기화
-	//두 문자가 같은 칸의 경우 추가로 dp[i - 1][j - 1] + 1 까지 비교하여 초기화
-	for (int64 i = 1; i <= b.length(); ++i) {
-		for (int64 j = 1; j <= a.length(); ++j) {
-			dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
-			if (b[i - 1] == a[j - 1]) dp[i][j] = max(dp[i][j], dp[i - 1][j - 1] + 1);
+		cin >> N >> M >> bg;
+		for (int i = 0; i < bg; ++i) {
+			int a, b;
+			cin >> a >> b;
+
+			_map[a][b] = 1; //배추 위치
+			v.push_back({ a,b }); // 벡터에 저장
 		}
-	}
 
-	cout << dp[b.length()][a.length()]; // 초기화 끝난 dp 출력
+		//배추가 안전한지 확인하는 부분
+		for (auto iter : v) {
+			if (_map[iter.first][iter.second]) {
+				_map[iter.first][iter.second] = 0;
+				q.push({ iter.first, iter.second });
+				ans++;
+				BFS();
+			}
+		}
+
+		cout << ans << "\n";
+
+		v.clear();
+		ans = 0;
+
+	}
 
 	return EXIT_SUCCESS;
 }
@@ -64,4 +122,6 @@ int main() {
 
 | 메모리  | 시간 |
 |----|----|
-| 5940KB| 4ms|
+| 2168KB| 0ms|
+
+
