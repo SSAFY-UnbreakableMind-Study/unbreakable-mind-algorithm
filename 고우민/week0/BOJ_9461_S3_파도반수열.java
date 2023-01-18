@@ -4,7 +4,7 @@ public class BOJ_9461_S3_파도반수열 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
-        int[] dp = new int[101];
+        long[] dp = new long[101];
         for (int i = 1; i < 4; i++) {
             dp[i] = 1;
         }
