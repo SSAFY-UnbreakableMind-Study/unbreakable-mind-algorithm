@@ -1,33 +1,3 @@
-## BOJ_14502_G4_연구소
-- dfs, bfs, combination
-- https://www.acmicpc.net/problem/14502
-
-
-
-## 풀이
-재귀함수, dfs를 통해 벽을 세울 위치 세군데를 탐색,
-세군데가 정해진 경우 bfs함수를 통해 오염되지 않은 면적 체크
-max_value 변수에 bfs가 실행될때마다 오염되지 않은 면적을 갱신
-
-~~~java
-def dfs():
-    global count
-    global total
-    if count == 3:
-        bfs()
-        return
-    for i in range(n):
-        for j in range(m):
-            if(graph[i][j] == 0):
-                graph[i][j] = 1
-                count = count + 1
-                dfs()
-                graph[i][j] = 0
-                count = count - 1
-~~~
-
-## 소스코드
-~~~java
 from collections import deque as dq
 import copy
 import sys
@@ -91,12 +61,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-~~~
-
-## 결과 
-pypy
-| 메모리  | 시간 |
-|----|----|
-| 126448 KB| 2864ms|
-
