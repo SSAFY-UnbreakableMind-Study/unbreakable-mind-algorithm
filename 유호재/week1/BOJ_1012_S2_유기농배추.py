@@ -1,27 +1,3 @@
-## BOJ_1012_S2_유기농배추
-- bfs
-- https://www.acmicpc.net/problem/1012
-
-
-
-## 풀이
-2차원배열을 하나씩 탐색하며 인접한 배추를 체크하며 count를 증가시킴
-
-~~~java
-def dfs(x, y):
-        if x >=n or y >= m or x < 0 or y < 0 or graph[x][y] == 2:
-            return
-        if graph[x][y] == 1:
-            graph[x][y] = 2
-            for i in range(4):
-                nx = x + dx[i]
-                ny = y + dy[i]
-                dfs(nx, ny)
-        return
-~~~
-
-## 소스코드
-~~~java
 import sys
 sys.setrecursionlimit(10**7)
 for _ in range(int(input())):
@@ -50,11 +26,3 @@ for _ in range(int(input())):
                 count += 1
                 dfs(i, j)
     print(count)
-~~~
-
-## 결과 
-
-| 메모리  | 시간 |
-|----|----|
-| 33220KB| 340ms|
-
