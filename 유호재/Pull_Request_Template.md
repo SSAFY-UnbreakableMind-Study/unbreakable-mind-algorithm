@@ -1,92 +1,34 @@
-## BOJ_14502_G4_연구소
-- dfs, bfs, combination
-- https://www.acmicpc.net/problem/14502
+## BOJ_11053_S2_가장긴증가하는부분수열
+- dp
+- https://www.acmicpc.net/problem/11053
 
 
 
 ## 풀이
-재귀함수, dfs를 통해 벽을 세울 위치 세군데를 탐색,
-세군데가 정해진 경우 bfs함수를 통해 오염되지 않은 면적 체크
-max_value 변수에 bfs가 실행될때마다 오염되지 않은 면적을 갱신
+1차원 배열을 하나씩 탐색하며 현재 인덱스 앞의 값들을 모두 탐색
+value는 작은 값들 중 count가 가장 큰 값의 count에 1을 더하여 현재 인덱스에 저장
 
 ~~~java
-def dfs():
-    global count
-    global total
-    if count == 3:
-        bfs()
-        return
-    for i in range(n):
-        for j in range(m):
-            if(graph[i][j] == 0):
-                graph[i][j] = 1
-                count = count + 1
-                dfs()
-                graph[i][j] = 0
-                count = count - 1
+for j in range(i):
+            if graph[j] < graph[i]:
+                max_count = max(max_count, count[j])
+        count[i] = max_count +1
 ~~~
 
 ## 소스코드
 ~~~java
-from collections import deque as dq
-import copy
-import sys
-
-input = sys.stdin.readline
-
-graph = []
-
-n, m = map(int, input().split())
-dx = [0,0,1,-1]
-dy = [1,-1,0,0]
-
-for i in range(n):
-    graph.append(list(map(int, input().split())))
-
-count = 0
-max_value = 0
-
-def bfs():
-    global max_value
-    queue = dq()
-    for i in range(n):
-        for j in range(m):
-            if graph[i][j] == 2:
-                queue.append([i,j])
-    samplegraph = copy.deepcopy(graph)
-    while(queue):
-        x, y = queue.pop()
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            if (nx < n and ny < m and nx >= 0 and ny >= 0 and samplegraph[nx][ny] == 0):
-                samplegraph[nx][ny] = 2
-                queue.append([nx, ny])
-    total = 0
-    for q in range(n):
-        for w in range(m):
-            if samplegraph[q][w] == 0:
-                total += 1
-    max_value = max(max_value, total)
-
-def dfs():
-    global count
-    global total
-    if count == 3:
-        bfs()
-        return
-    for i in range(n):
-        for j in range(m):
-            if(graph[i][j] == 0):
-                graph[i][j] = 1
-                count = count + 1
-                dfs()
-                graph[i][j] = 0
-                count = count - 1
 
 def main():
-    dfs()
-    print(max_value)
+    n = int(input())
+    graph = list(map(int, input().split()))
+    count = [0]*n
+    for i in range(n):
+        max_count = 0
+        for j in range(i):
+            if graph[j] < graph[i]:
+                max_count = max(max_count, count[j])
+        count[i] = max_count +1
+    print(max(count))
 
 
 if __name__ == "__main__":
@@ -98,5 +40,5 @@ if __name__ == "__main__":
 pypy
 | 메모리  | 시간 |
 |----|----|
-| 126448 KB| 2864ms|
+| 30616 KB| 92ms|
 
