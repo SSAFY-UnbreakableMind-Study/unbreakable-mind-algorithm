@@ -1,51 +1,75 @@
-## BOJ_1761_P5_정점들의 거리
-- 트리, 최소 공통 조상
-- https://www.acmicpc.net/problem/1761
+## BOJ_1948_P5_임계경로
+- 그래프, 위상 정렬
+- https://www.acmicpc.net/problem/1948
 
 
 
 ## 풀이
 
-트리 구조체를 생성후 입력을 먼저 받았습니다.
-그 후 루트노드를 임의로 1번 정점으로 설정 후,
-루트노드까지의 거리, 트리에서의 깊이, 해당 노드의 부모노드를 설정 해주었습니다.
+vto벡터에 나가는 점과, 걸리는 시간을 저장하고
+vfrom벡터에 들어오는 점과, 걸리는 시간을 저장하였습니다
+
 
 ~~~java
-// 깊이 거리, 부모노드 설정
-inline void setDis(int cur) {
-	tr[cur].dis += tr[tr[cur].parent].dis;
-	tr[cur].dep = tr[tr[cur].parent].dep + 1;
-	for (auto iter : tr[cur].v) {
-		if (iter.first == tr[cur].parent) continue;
-		tr[iter.first].parent = cur;
-		tr[iter.first].dis = iter.second;
+	vto[a].push_back({ b,c }); // 나가는 점 
+	vfrom[b].push_back({ a,c }); // 들어오는 점 
+	pr[b]++; //먼저 방문해야 하는 점 개수
+~~~
 
-		setDis(iter.first);
+
+
+그 후, vto 벡터를 이용하여 
+시작점부터 위상정렬을 통해 각 점까지 걸리는 최대시간을 구한 후
+
+
+~~~java
+// 위상정렬 그래프 탐색
+inline void search() {
+	while (!pq.empty()) {
+		int64 cur = get<0>(pq.front());
+		int64 next_cur = get<1>(pq.front());
+		int64 next_d = get<2>(pq.front()) + dis[cur];
+
+		pq.pop();
+
+		pr[next_cur]--;
+		dis[next_cur] = max(dis[next_cur], next_d);
+
+		if (!pr[next_cur]) {
+			for (auto iter : vto[next_cur]) {
+				pq.push({ next_cur, iter.first, iter.second });
+			}
+		}
 	}
+
 }
 ~~~
 
 
-그 후 거리를 측정할 두 노드를 입력 받고,
-두 노드간의 깊이가 다르면 높은쪽의 깊이를 한단계 낮춰줍니다(부모노드로 이동)
-
-깊이가 같으면 두 노드가 같은 부모노드를 가지고 있는지 확인해줍니다.
-이때 부모노드가 다르면 두 노드 모드 깊이를 낮춰줍니다.
+vfrom 벡터를 통해 도착점으로부터 역순으로 
+최대 시간이 걸리는 길을 찾았습니다
 
 ~~~java
-	//깊이가 다르면 같게 맞추고, 노드값이 같으면 BREAK
-		da = a, db = b;
-		while (1) {
-			if (tr[da].dep > tr[db].dep) da = tr[da].parent;
-			else if (tr[da].dep < tr[db].dep) db = tr[db].parent;
-			else {
-				if (da == db) break;
-				else {
-					da = tr[da].parent;
-					db = tr[db].parent;
+	//최대 시간이 걸리는 길 찾기
+inline void cntRoad() {
+	while (!pq.empty()) {
+		int64 cur = get<0>(pq.front());
+		int64 prev_cur = get<1>(pq.front());
+		int64 prev_d = dis[prev_cur] + get<2>(pq.front());
+
+		pq.pop();
+
+		if (dis[cur] == prev_d) {
+			ans++;
+			if (!vit[prev_cur]) {
+				for (auto iter : vfrom[prev_cur]) {
+					pq.push({ prev_cur, iter.first, iter.second });
 				}
 			}
+			vit[prev_cur] = true;
 		}
+	}
+}
 ~~~
 
 
@@ -58,69 +82,85 @@ inline void setDis(int cur) {
 using namespace std;
 using int64 = int64_t;
 
-//트리 구조체
-typedef struct tree {
-	int parent;
-	int dep;
-	int64 dis;
-	vector<pair<int, int>> v;
-}tree;
+bool vit[10001];
+int64 ans;
+int64 pr[10001];
+int64 dis[10001];
+vector<pair<int64, int64>> vto[10001], vfrom[10001];
+queue<tuple<int64, int64, int64>> pq;
 
-tree tr[40001];
+//최대 시간이 걸리는 길 찾기
+inline void cntRoad() {
+	while (!pq.empty()) {
+		int64 cur = get<0>(pq.front());
+		int64 prev_cur = get<1>(pq.front());
+		int64 prev_d = dis[prev_cur] + get<2>(pq.front());
 
-// 깊이 거리, 부모노드 설정
-inline void setDis(int cur) {
-	tr[cur].dis += tr[tr[cur].parent].dis;
-	tr[cur].dep = tr[tr[cur].parent].dep + 1;
-	for (auto iter : tr[cur].v) {
-		if (iter.first == tr[cur].parent) continue;
-		tr[iter.first].parent = cur;
-		tr[iter.first].dis = iter.second;
+		pq.pop();
 
-		setDis(iter.first);
+		if (dis[cur] == prev_d) {
+			ans++;
+			if (!vit[prev_cur]) {
+				for (auto iter : vfrom[prev_cur]) {
+					pq.push({ prev_cur, iter.first, iter.second });
+				}
+			}
+			vit[prev_cur] = true;
+		}
 	}
+}
+
+// 위상정렬 그래프 탐색
+inline void search() {
+	while (!pq.empty()) {
+		int64 cur = get<0>(pq.front());
+		int64 next_cur = get<1>(pq.front());
+		int64 next_d = get<2>(pq.front()) + dis[cur];
+
+		pq.pop();
+
+		pr[next_cur]--;
+		dis[next_cur] = max(dis[next_cur], next_d);
+
+		if (!pr[next_cur]) {
+			for (auto iter : vto[next_cur]) {
+				pq.push({ next_cur, iter.first, iter.second });
+			}
+		}
+	}
+
 }
 
 int main() {
 	fastio;
 
-	int N;
-	cin >> N;
-
-	for (int i = 0; i < N - 1; ++i) {
-		int a, b, c;
+	int64 N, M;
+	cin >> N >> M;
+	for (int64 i = 0; i < M; ++i) {
+		int64 a, b, c;
 		cin >> a >> b >> c;
-
-		tr[a].v.push_back({ b,c });
-		tr[b].v.push_back({ a,c });
+		
+		vto[a].push_back({ b,c }); // 나가는 점 
+		vfrom[b].push_back({ a,c }); // 들어오는 점 
+		pr[b]++; //먼저 방문해야 하는 점 개수
 	}
 
-	tr[1].parent = 0, tr[1].dis = 0;
-	setDis(1);
+	int64 st, des;
+	cin >> st >> des;
 
-	int M;
-	cin >> M;
-
-	for (int i = 0; i < M; ++i) {
-		int a, b, da, db;
-		cin >> a >> b;
-
-		//깊이가 다르면 같게 맞추고, 노드값이 같으면 BREAK
-		da = a, db = b;
-		while (1) {
-			if (tr[da].dep > tr[db].dep) da = tr[da].parent;
-			else if (tr[da].dep < tr[db].dep) db = tr[db].parent;
-			else {
-				if (da == db) break;
-				else {
-					da = tr[da].parent;
-					db = tr[db].parent;
-				}
-			}
-		}
-
-		cout << tr[a].dis + tr[b].dis - 2 * tr[da].dis << "\n";
+	for (auto iter : vto[st]) {
+		pq.push({st, iter.first, iter.second });
 	}
+
+	search();
+
+	for (auto iter : vfrom[des]) {
+		pq.push({des, iter.first, iter.second });
+	}
+
+	cntRoad();
+
+	cout << dis[des] << "\n" << ans;
 
 	return EXIT_SUCCESS;
 }
@@ -135,6 +175,6 @@ int main() {
 
 | 메모리  | 시간 |
 |----|----|
-| 6032KB| 1068ms|
+| 7148KB| 36ms|
 
 
