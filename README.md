@@ -99,6 +99,12 @@ static void findTarget(){
 | BOJ | 14502 | [연구소](https://www.acmicpc.net/problem/14502) | 그래프 탐색 | G4 |
 
 
+### 🏃🏻‍♂️week 2
+
+|Type | 문제 | 제목 | 유형 | 등급|
+|--- | --- | --- | --- | ---|
+| PG | 2021 KAKAO BLIND | [합승 택시 요금](https://school.programmers.co.kr/learn/courses/30/lessons/72413) | 그래프 탐색 | Lv3 |
+| BOJ | 15683 | [감시](https://www.acmicpc.net/problem/15683) | 구현 | G4 |
 
 
 

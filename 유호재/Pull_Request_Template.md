@@ -1,50 +1,44 @@
-## BOJ_9461_S3_파도반수열
-- dynamic programming
-- https://www.acmicpc.net/problem/9461
+## BOJ_11053_S2_가장긴증가하는부분수열
+- dp
+- https://www.acmicpc.net/problem/11053
 
 
 
 ## 풀이
-
-점화식을 만들었어요.<br/>
-a(N) = a(N-1) + a(N-5)<br/>
+1차원 배열을 하나씩 탐색하며 현재 인덱스 앞의 값들을 모두 탐색
+value는 작은 값들 중 count가 가장 큰 값의 count에 1을 더하여 현재 인덱스에 저장
 
 ~~~java
-for (int i = 6; i < 101; i++) {
-			arr[i] = arr[i-1]+ arr[i-5];
-		}
+for j in range(i):
+            if graph[j] < graph[i]:
+                max_count = max(max_count, count[j])
+        count[i] = max_count +1
 ~~~
 
 ## 소스코드
 ~~~java
-import java.util.Scanner;
 
-public class BOJ_9461_S3_파도반수열 {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int t = sc.nextInt();
-		
-		long[] arr = new long[101];
-		arr[1]= 1;
-		arr[2] = 1;
-		arr[3] = 1;
-		arr[4] = 2;
-		arr[5] = 2;
-		for (int i = 6; i < 101; i++) {
-			arr[i] = arr[i-1]+ arr[i-5];
-		}
-		
-		for (int i= 0; i <t; i++) {
-			int n = sc.nextInt();
-			System.out.println(arr[n]);
-		}
-	}
-}
+def main():
+    n = int(input())
+    graph = list(map(int, input().split()))
+    count = [0]*n
+    for i in range(n):
+        max_count = 0
+        for j in range(i):
+            if graph[j] < graph[i]:
+                max_count = max(max_count, count[j])
+        count[i] = max_count +1
+    print(max(count))
+
+
+if __name__ == "__main__":
+    main()
+
 ~~~
 
 ## 결과 
-
+pypy
 | 메모리  | 시간 |
 |----|----|
-| 17724KB| 220ms|
+| 30616 KB| 92ms|
 
