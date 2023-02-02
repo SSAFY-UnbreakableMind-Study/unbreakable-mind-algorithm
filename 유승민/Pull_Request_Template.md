@@ -1,75 +1,126 @@
-## BOJ_1948_P5_임계경로
-- 그래프, 위상 정렬
-- https://www.acmicpc.net/problem/1948
+## BOJ_3954_G1_Brainfk 인터프리터
+- 스택, 구현
+- https://www.acmicpc.net/problem/3954
 
 
 
 ## 풀이
 
-vto벡터에 나가는 점과, 걸리는 시간을 저장하고
-vfrom벡터에 들어오는 점과, 걸리는 시간을 저장하였습니다
+여는괄호와 닫는괄호를 짝 지어준 후, 쿼리를 실행하였습니다.
 
 
 ~~~java
-	vto[a].push_back({ b,c }); // 나가는 점 
-	vfrom[b].push_back({ a,c }); // 들어오는 점 
-	pr[b]++; //먼저 방문해야 하는 점 개수
-~~~
-
-
-
-그 후, vto 벡터를 이용하여 
-시작점부터 위상정렬을 통해 각 점까지 걸리는 최대시간을 구한 후
-
-
-~~~java
-// 위상정렬 그래프 탐색
-inline void search() {
-	while (!pq.empty()) {
-		int64 cur = get<0>(pq.front());
-		int64 next_cur = get<1>(pq.front());
-		int64 next_d = get<2>(pq.front()) + dis[cur];
-
-		pq.pop();
-
-		pr[next_cur]--;
-		dis[next_cur] = max(dis[next_cur], next_d);
-
-		if (!pr[next_cur]) {
-			for (auto iter : vto[next_cur]) {
-				pq.push({ next_cur, iter.first, iter.second });
+//열리는 괄호와 닫히는 괄호 계산
+	vector<int> bracketIn;
+		vector<pair<int, int>> bracketInOut;
+		for (int i = 0; i < sc; ++i) {
+			cin >> Sc[i];
+			if (Sc[i] == '[') {
+				bracketIn.push_back(i);
+			}
+			else if (Sc[i] == ']') {
+				bracketInOut.push_back({ bracketIn.back(), i });
+				bracketIn.pop_back();
 			}
 		}
-	}
+~~~
 
-}
+첫 5천만번은 유한루프를 탐지하기 위해 실행하고
+이후 5천만번은 무한루프를 탐지하기 위해 실행하였습니다.
+
+
+~~~java
+//쿼리 실행
+		for (int i = 0, smp = 0, scp = 0, sip = 0, inp = -1, outp = 100001; i < 2; ++i) {
+			for (int j = 0; j < 50000001; ++j) {
+
+				if (scp >= sc) {
+					isInfLoop = false;
+					break;
+				}
+
+				if (Sc[scp] == '-') {
+					Sm[smp] = (Sm[smp] - 1) % 256;
+				}
+				else if (Sc[scp] == '+') {
+					Sm[smp] = (Sm[smp] + 1) % 256;
+				}
+				else if (Sc[scp] == '<') {
+					if (smp == 0) smp = sm - 1;
+					else smp--;
+				}
+				else if (Sc[scp] == '>') {
+					if (smp == sm - 1) smp = 0;
+					else smp++;
+				}
+				else if (Sc[scp] == '[') {
+					if (!Sm[smp]) {
+						inp = scp;
+						for (auto iter : bracketInOut) {
+							if (inp == iter.first) {
+								outp = iter.second;
+								break;
+							}
+						}
+						scp = outp + 1;
+						continue;
+					}
+				}
+				// 해당 괄호가 몇번 실행됬는지 카운트
+				else if (Sc[scp] == ']') {
+					loopCnt[scp]++;
+					if (Sm[smp]) {
+						outp = scp;
+						for (auto iter : bracketInOut) {
+							if (outp == iter.second) {
+								inp = iter.first;
+								break;
+							}
+						}
+						scp = inp + 1;
+						continue;
+					}
+				}
+				else if (Sc[scp] == '.') {
+
+				}
+				else if (Sc[scp] == ',') {
+					if (sip < si) {
+						Sm[smp] = Si[sip];
+						sip++;
+					}
+					else Sm[smp] = 255;
+				}
+
+				scp++;
+			}
+		}
 ~~~
 
 
-vfrom 벡터를 통해 도착점으로부터 역순으로 
-최대 시간이 걸리는 길을 찾았습니다
+이후 닫히는 괄호가 2번이상 실행된 부분이
+실제로 무한루프가 걸리는 부분입니다.
 
 ~~~java
-	//최대 시간이 걸리는 길 찾기
-inline void cntRoad() {
-	while (!pq.empty()) {
-		int64 cur = get<0>(pq.front());
-		int64 prev_cur = get<1>(pq.front());
-		int64 prev_d = dis[prev_cur] + get<2>(pq.front());
-
-		pq.pop();
-
-		if (dis[cur] == prev_d) {
-			ans++;
-			if (!vit[prev_cur]) {
-				for (auto iter : vfrom[prev_cur]) {
-					pq.push({ prev_cur, iter.first, iter.second });
+	// 무한루프인 괄호 찾기
+		int maxx = -1;
+		if (isInfLoop) {
+			for (int j = sc - 1; j >= 0; --j) {
+				if (loopCnt[j] >= 2) {
+					maxx = j;
+					break;
 				}
 			}
-			vit[prev_cur] = true;
+			int minn;
+			for (auto iter : bracketInOut) {
+				if (maxx == iter.second) {
+					minn = iter.first;
+					break;
+				}
+			}
+
+			cout << "Loops " << minn << ' ' << maxx << "\n";
 		}
-	}
-}
 ~~~
 
 
@@ -81,86 +132,131 @@ inline void cntRoad() {
 // INT32_MIN, INT64_MIN, INT32_MAX, INT64_MAX
 using namespace std;
 using int64 = int64_t;
-
-bool vit[10001];
-int64 ans;
-int64 pr[10001];
-int64 dis[10001];
-vector<pair<int64, int64>> vto[10001], vfrom[10001];
-queue<tuple<int64, int64, int64>> pq;
-
-//최대 시간이 걸리는 길 찾기
-inline void cntRoad() {
-	while (!pq.empty()) {
-		int64 cur = get<0>(pq.front());
-		int64 prev_cur = get<1>(pq.front());
-		int64 prev_d = dis[prev_cur] + get<2>(pq.front());
-
-		pq.pop();
-
-		if (dis[cur] == prev_d) {
-			ans++;
-			if (!vit[prev_cur]) {
-				for (auto iter : vfrom[prev_cur]) {
-					pq.push({ prev_cur, iter.first, iter.second });
-				}
-			}
-			vit[prev_cur] = true;
-		}
-	}
-}
-
-// 위상정렬 그래프 탐색
-inline void search() {
-	while (!pq.empty()) {
-		int64 cur = get<0>(pq.front());
-		int64 next_cur = get<1>(pq.front());
-		int64 next_d = get<2>(pq.front()) + dis[cur];
-
-		pq.pop();
-
-		pr[next_cur]--;
-		dis[next_cur] = max(dis[next_cur], next_d);
-
-		if (!pr[next_cur]) {
-			for (auto iter : vto[next_cur]) {
-				pq.push({ next_cur, iter.first, iter.second });
-			}
-		}
-	}
-
-}
+using uint = unsigned int;
 
 int main() {
 	fastio;
 
-	int64 N, M;
-	cin >> N >> M;
-	for (int64 i = 0; i < M; ++i) {
-		int64 a, b, c;
-		cin >> a >> b >> c;
-		
-		vto[a].push_back({ b,c }); // 나가는 점 
-		vfrom[b].push_back({ a,c }); // 들어오는 점 
-		pr[b]++; //먼저 방문해야 하는 점 개수
+	int T;
+	cin >> T;
+
+	for (int t = 0; t < T; ++t) {
+		int sm, sc, si;
+		cin >> sm >> sc >> si;
+
+		uint Sm[100001] = { 0, };
+		int loopCnt[5000] = { 0, };
+		char Sc[5000];
+		char Si[5000];
+
+		//열리는 괄호와 닫히는 괄호 계산
+		vector<int> bracketIn;
+		vector<pair<int, int>> bracketInOut;
+		for (int i = 0; i < sc; ++i) {
+			cin >> Sc[i];
+			if (Sc[i] == '[') {
+				bracketIn.push_back(i);
+			}
+			else if (Sc[i] == ']') {
+				bracketInOut.push_back({ bracketIn.back(), i });
+				bracketIn.pop_back();
+			}
+		}
+
+		for (int i = 0; i < si; ++i) {
+			cin >> Si[i];
+		}
+
+		bool isInfLoop = true; // 무한루프인가?
+
+		//쿼리 실행
+		for (int i = 0, smp = 0, scp = 0, sip = 0, inp = -1, outp = 100001; i < 2; ++i) {
+			for (int j = 0; j < 50000001; ++j) {
+
+				if (scp >= sc) {
+					isInfLoop = false;
+					break;
+				}
+
+				if (Sc[scp] == '-') {
+					Sm[smp] = (Sm[smp] - 1) % 256;
+				}
+				else if (Sc[scp] == '+') {
+					Sm[smp] = (Sm[smp] + 1) % 256;
+				}
+				else if (Sc[scp] == '<') {
+					if (smp == 0) smp = sm - 1;
+					else smp--;
+				}
+				else if (Sc[scp] == '>') {
+					if (smp == sm - 1) smp = 0;
+					else smp++;
+				}
+				else if (Sc[scp] == '[') {
+					if (!Sm[smp]) {
+						inp = scp;
+						for (auto iter : bracketInOut) {
+							if (inp == iter.first) {
+								outp = iter.second;
+								break;
+							}
+						}
+						scp = outp + 1;
+						continue;
+					}
+				}
+				// 해당 괄호가 몇번 실행됬는지 카운트
+				else if (Sc[scp] == ']') {
+					loopCnt[scp]++;
+					if (Sm[smp]) {
+						outp = scp;
+						for (auto iter : bracketInOut) {
+							if (outp == iter.second) {
+								inp = iter.first;
+								break;
+							}
+						}
+						scp = inp + 1;
+						continue;
+					}
+				}
+				else if (Sc[scp] == '.') {
+
+				}
+				else if (Sc[scp] == ',') {
+					if (sip < si) {
+						Sm[smp] = Si[sip];
+						sip++;
+					}
+					else Sm[smp] = 255;
+				}
+
+				scp++;
+			}
+		}
+
+		// 무한루프인 괄호 찾기
+		int maxx = -1;
+		if (isInfLoop) {
+			for (int j = sc - 1; j >= 0; --j) {
+				if (loopCnt[j] >= 2) {
+					maxx = j;
+					break;
+				}
+			}
+			int minn;
+			for (auto iter : bracketInOut) {
+				if (maxx == iter.second) {
+					minn = iter.first;
+					break;
+				}
+			}
+
+			cout << "Loops " << minn << ' ' << maxx << "\n";
+		}
+		else cout << "Terminates" << "\n";
+
 	}
-
-	int64 st, des;
-	cin >> st >> des;
-
-	for (auto iter : vto[st]) {
-		pq.push({st, iter.first, iter.second });
-	}
-
-	search();
-
-	for (auto iter : vfrom[des]) {
-		pq.push({des, iter.first, iter.second });
-	}
-
-	cntRoad();
-
-	cout << dis[des] << "\n" << ans;
 
 	return EXIT_SUCCESS;
 }
@@ -173,8 +269,8 @@ int main() {
 
 ## 결과 
 
-| 메모리  | 시간 |
-|----|----|
-| 7148KB| 36ms|
+| 메모리 | 시간 |
+| ------ | ---- |
+| 2324KB | 1748ms |
 
 
