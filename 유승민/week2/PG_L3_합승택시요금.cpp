@@ -1,39 +1,3 @@
-## PG_L3_합승택시요금
-- Floyd-Warshall
-- https://school.programmers.co.kr/learn/courses/30/lessons/72413
-
-
-
-## 풀이
-
-처음에 정점의 개수가 2000개인줄 알아서 O(n^2)
-이하로 풀어야되는 줄 알았는데 알고보니 정점의 개수가 200개여서
-간단하게 플로이드 워셜 알고리즘 O(n^3) 을 사용하였다.
-
-<br>
-
-
-
-
-~~~java
- //플로이드 워셜 알고리즘
-    for(int i=1; i<=n; ++i){
-        for(int j=1; j<=n; ++j){
-            for(int k=1; k<=n; ++k){
-                arr[j][k] = min(arr[j][k] , arr[j][i] + arr[i][k]);
-            }
-        }
-    }
-~~~
-
-<br>
-
-
-
-
-
-## 소스코드
-~~~java
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -75,17 +39,3 @@ int solution(int n, int s, int a, int b, vector<vector<int>> fares) {
     
     return answer;
 }
-~~~
-
-
-<br/>
-
-
-
-## 결과 
-
-| 메모리 | 시간 |
-| ------ | ---- |
-| -KB | -ms |
-
-
