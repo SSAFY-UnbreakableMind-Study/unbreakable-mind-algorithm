@@ -1,87 +1,3 @@
-## BOJ_15683_G4_감시
-- 브루트포스, 구현, BFS
-- https://www.acmicpc.net/problem/15683
-
-
-
-## 풀이
-
-CCTV가 볼 수 있는 방향을 사전에 setDir 함수를 이용해 매핑한 후
-각각의 CCTV방향을 conbiDir 함수를 이용해 브루트포스로 전부 찾아내며
-BFS탐색을 통해 사각지대의 개수를 찾아내었습니다.
-<br>
-
-
-
-
-~~~java
-//각각의 CCTV가 볼수 있는 방향 맵핑
-inline void setDir() {
-
-	cctvDir[5][0].push_back(0);
-	cctvDir[5][0].push_back(1);
-	cctvDir[5][0].push_back(2);
-	cctvDir[5][0].push_back(3);
-
-	...
-	...
-}
-~~~
-
-<br>
-
-
-~~~java
-//각각의 CCTV 위치 설정 재귀함수 이용
-inline void conbiDir(int64 cur, int64 dep) {
-	if (cur == dep) {
-		setMap();
-		BFS();
-		return;
-	}
-
-	...
-	...
-}
-~~~
-
-
-<br>
-
-
-
-~~~java
-//BFS 탐색 시작
-	inline void BFS() {
-	while (!q.empty()) {
-		int64 cur_x = get<0>(q.front());
-		int64 cur_y = get<1>(q.front());
-		int64 direct = get<2>(q.front());
-
-		q.pop();
-
-		int64 next_x = cur_x + dx[direct];
-		int64 next_y = cur_y + dy[direct];
-
-		if (isValid(next_x, next_y)) {
-			if (copy_map[next_x][next_y] != 6) {
-				q.push({ next_x, next_y, direct });
-				if (!copy_map[next_x][next_y]) {
-					copy_map[next_x][next_y] = -1;
-					copy_total--;
-				}
-			}
-		}
-
-	}
-
-	Ans = min(copy_total, Ans);
-}
-~~~
-
-
-## 소스코드
-~~~java
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->ios::sync_with_stdio(0); cout.tie(0); setvbuf(stdout, nullptr, _IOFBF, BUFSIZ);
 #define INF INT64_MAX
@@ -98,7 +14,7 @@ vector<int64> cctvDir[6][4];
 vector<tuple<int64, int64, int64>> vec, cctvPos;
 queue<tuple<int64, int64, int64>> q;
 
-//각각의 CCTV가 볼수 있는 방향 맵핑
+//������ CCTV�� ���� �ִ� ���� ����
 inline void setDir() {
 	cctvDir[1][0].push_back(0);
 	cctvDir[1][1].push_back(1);
@@ -141,12 +57,12 @@ inline void setDir() {
 	cctvDir[5][0].push_back(3);
 }
 
-// 유효한 위치인지 확인
+// ��ȿ�� ��ġ���� Ȯ��
 inline bool isValid(int64 x, int64 y) {
 	return (x >= 0 && x < N&& y >= 0 && y < M);
 }
 
-//BFS 탐색 시작
+//BFS Ž�� ����
 inline void BFS() {
 	while (!q.empty()) {
 		int64 cur_x = get<0>(q.front());
@@ -173,7 +89,7 @@ inline void BFS() {
 	Ans = min(copy_total, Ans);
 }
 
-//BFS 탐색 전 맵초기화
+//BFS Ž�� �� ���ʱ�ȭ
 inline void setMap() {
 	for (int i = 0; i < N; ++i) {
 		for (int j = 0; j < M; ++j) {
@@ -188,7 +104,7 @@ inline void setMap() {
 	copy_total = total;
 }
 
-//각각의 CCTV 위치 설정 재귀함수 이용
+//������ CCTV ��ġ ���� ����Լ� �̿�
 inline void conbiDir(int64 cur, int64 dep) {
 	if (cur == dep) {
 		setMap();
@@ -237,17 +153,3 @@ int main() {
 
 	return EXIT_SUCCESS;
 }
-~~~
-
-
-<br/>
-
-
-
-## 결과 
-
-| 메모리 | 시간 |
-| ------ | ---- |
-| 2032KB | 64ms |
-
-
