@@ -1,33 +1,3 @@
-## BOJ_15683_G4_감시
-- 구현, 브루스포트, 시뮬레이션
-- https://www.acmicpc.net/problem/15683
-
-
-
-## 풀이
-맵 정보를 입력받으며 카메라 위치 저장,
-카메라 번호별 가동가능한 범위들을 번호에 맞게 지정하여 넣음
-카메라가 모두 들어간 경우 0을 count하여 값 갱신
-설치된카메라탐색 -> 카메라번호당 방향탐색
-
-~~~java
-if depth == len(camerainfo):
-        count = 0
-        for i in range(n):
-            count += graphtemp[i].count(0)
-        min_value = min(min_value, count)
-        return
-    temp = copy.deepcopy(graphtemp)
-    camerano, x, y = camerainfo[depth]
-    for i in cameradir[camerano]:
-        run(temp, i, x, y)
-        dfs(depth+1, temp)
-        temp = copy.deepcopy(graphtemp)
-~~~
-
-## 소스코드
-~~~java
-
 import copy
 min_value = int(1e9)
 n, m = map(int, input().split())
@@ -84,12 +54,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-## 결과 
-pypy
-| 메모리  | 시간 |
-|----|----|
-| -- KB| -- ms|
-
