@@ -1,85 +1,92 @@
-## BOJ_15683_G4_감시
-- 구현, 브루스포트, 시뮬레이션
-- https://www.acmicpc.net/problem/15683
+## BOJ_14502_G4_연구소
+- dfs, bfs, combination
+- https://www.acmicpc.net/problem/14502
 
 
 
 ## 풀이
-맵 정보를 입력받으며 카메라 위치 저장,
-카메라 번호별 가동가능한 범위들을 번호에 맞게 지정하여 넣음
-카메라가 모두 들어간 경우 0을 count하여 값 갱신
-설치된카메라탐색 -> 카메라번호당 방향탐색
+재귀함수, dfs를 통해 벽을 세울 위치 세군데를 탐색,
+세군데가 정해진 경우 bfs함수를 통해 오염되지 않은 면적 체크
+max_value 변수에 bfs가 실행될때마다 오염되지 않은 면적을 갱신
 
 ~~~java
-if depth == len(camerainfo):
-        count = 0
-        for i in range(n):
-            count += graphtemp[i].count(0)
-        min_value = min(min_value, count)
+def dfs():
+    global count
+    global total
+    if count == 3:
+        bfs()
         return
-    temp = copy.deepcopy(graphtemp)
-    camerano, x, y = camerainfo[depth]
-    for i in cameradir[camerano]:
-        run(temp, i, x, y)
-        dfs(depth+1, temp)
-        temp = copy.deepcopy(graphtemp)
+    for i in range(n):
+        for j in range(m):
+            if(graph[i][j] == 0):
+                graph[i][j] = 1
+                count = count + 1
+                dfs()
+                graph[i][j] = 0
+                count = count - 1
 ~~~
 
 ## 소스코드
 ~~~java
-
+from collections import deque as dq
 import copy
-min_value = int(1e9)
+import sys
+
+input = sys.stdin.readline
+
+graph = []
+
 n, m = map(int, input().split())
-graph1 = []
-camerainfo = []
-cameradir = [[],
-             [[0],[1],[2],[3]],
-             [[0,2],[1,3]],
-             [[0,1],[1,2],[2,3],[0,3]],
-             [[0,1,2],[0,1,3],[1,2,3],[0,2,3]],
-             [[0,1,2,3]]]
-dx = [-1,0,1,0]
-dy = [0,1,0,-1]
+dx = [0,0,1,-1]
+dy = [1,-1,0,0]
 
 for i in range(n):
-    graph1.append(list(map(int, input().split())))
-    for j in range(m):
-        if graph1[i][j] != 0 and graph1[i][j] != 6:
-            camerainfo.append([graph1[i][j],i,j])
+    graph.append(list(map(int, input().split())))
 
-def run(graph, cdir, x, y):
-    for i in cdir:
-        nx = x
-        ny = y
-        while True:
-            nx += dx[i]
-            ny += dy[i]
-            if nx <0 or ny <0 or nx >= n and ny >= m:
-                break
-            if graph[nx][ny] == 6:
-                break
-            elif graph[nx][ny] == 0:
-                graph[nx][ny] = 7
+count = 0
+max_value = 0
 
-def dfs(depth, graphtemp):
-    global min_value
-    if depth == len(camerainfo):
-        count = 0
-        for i in range(n):
-            count += graphtemp[i].count(0)
-        min_value = min(min_value, count)
+def bfs():
+    global max_value
+    queue = dq()
+    for i in range(n):
+        for j in range(m):
+            if graph[i][j] == 2:
+                queue.append([i,j])
+    samplegraph = copy.deepcopy(graph)
+    while(queue):
+        x, y = queue.pop()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if (nx < n and ny < m and nx >= 0 and ny >= 0 and samplegraph[nx][ny] == 0):
+                samplegraph[nx][ny] = 2
+                queue.append([nx, ny])
+    total = 0
+    for q in range(n):
+        for w in range(m):
+            if samplegraph[q][w] == 0:
+                total += 1
+    max_value = max(max_value, total)
+
+def dfs():
+    global count
+    global total
+    if count == 3:
+        bfs()
         return
-    temp = copy.deepcopy(graphtemp)
-    camerano, x, y = camerainfo[depth]
-    for i in cameradir[camerano]:
-        run(temp, i, x, y)
-        dfs(depth+1, temp)
-        temp = copy.deepcopy(graphtemp)
+    for i in range(n):
+        for j in range(m):
+            if(graph[i][j] == 0):
+                graph[i][j] = 1
+                count = count + 1
+                dfs()
+                graph[i][j] = 0
+                count = count - 1
 
 def main():
-    dfs(0,graph1)
-    print(min_value)
+    dfs()
+    print(max_value)
 
 
 if __name__ == "__main__":
@@ -91,5 +98,5 @@ if __name__ == "__main__":
 pypy
 | 메모리  | 시간 |
 |----|----|
-| -- KB| -- ms|
+| 126448 KB| 2864ms|
 
