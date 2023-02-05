@@ -1,63 +1,3 @@
-## BOJ_27311_S2_치노의 라떼 아트(Easy)
-- 구현
-- https://www.acmicpc.net/problem/27311
-
-
-
-## 풀이
-
-큰사각형의 경계를 찾고 그 안에서 작은 사각형의 경계를 찾은 후 
-작은 사각형이 큰 사각형의 모서리에 붙어있는 그림이면 1을 출력,
-그렇지 않으면 0을 출력하였다.
-
-<br>
-
-
-
-
-```cpp
-// 큰 사각형 경계 찾기
-for (int i = 0; i < N; ++i) {
-	for (int j = 0; j < M; ++j) {
-        if (arr[i][j] == '#') {
-            min_x = min(min_x, i);
-			min_y = min(min_y, j);
-			max_x = max(max_x, i);
-			max_y = max(max_y, j);
-        }
-                ..
-                ..
-                ..
-    }
-}
-```
-
-<br>
-
-```cpp
-//작은 사각형 경계 찾기
-for (int i = min_x; i <= max_x; ++i) {
-	for (int j = min_y; j <= max_y; ++j) {
-       if (arr[i][j] == '#') m_cream++;
-		else {
-			if (first_nx == -1) {
-				first_nx = i;
-				first_ny = j;
-			}			
-            min_nx = min(min_nx, i);
-			min_ny = min(min_ny, j);
-			max_nx = max(max_nx, i);
-			max_ny = max(max_ny, j);
-			n_cream++;
-		}
-    }
-}
-```
-
-
-
-## 소스코드
-```cpp
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->ios::sync_with_stdio(0); cout.tie(0); setvbuf(stdout, nullptr, _IOFBF, BUFSIZ);
 #define INF 100
@@ -78,7 +18,7 @@ int main() {
 		int N, M;
 		cin >> N >> M;
 
-		// 큰 사각형 경계 찾기
+		// ū �簢�� ��� ã��
 		int totalCream = 0, msquare = 0, nsquare = 0;
 		int min_x = INF, min_y = INF, max_x = -INF, max_y = -INF, first_x = -1, first_y = -1;
 		for (int i = 0; i < N; ++i) {
@@ -99,7 +39,7 @@ int main() {
 			}
 		}
 
-		// 만약 #이 없으면 하트가 안됨
+		// ���� #�� ������ ��Ʈ�� �ȵ�
 		if (first_x == -1 && first_y == -1) {
 			cout << "0" << "\n";
 			continue;
@@ -107,13 +47,13 @@ int main() {
 
 		msquare = max_x - min_x + 1;
 
-		//정사각형 모양이 아니면 하트가 안됨
+		//���簢�� ����� �ƴϸ� ��Ʈ�� �ȵ�
 		if (max_y - min_y + 1 != msquare) {
 			cout << "0" << "\n";
 			continue;
 		}
 
-		//작은 사각형 경계 찾기
+		//���� �簢�� ��� ã��
 		int m_cream = 0, n_cream = 0;
 		int min_nx = INF, min_ny = INF, max_nx = -INF, max_ny = -INF, first_nx = -1, first_ny = -1;
 		for (int i = min_x; i <= max_x; ++i) {
@@ -133,13 +73,13 @@ int main() {
 			}
 		}
 		
-		//. 이 없으면 하트가 안됨
+		//. �� ������ ��Ʈ�� �ȵ�
 		if (first_nx == -1 && first_ny == -1) {
 			cout << "0" << "\n";
 			continue;
 		}
 
-		// 모서리에 작은 사각형 경계가 없으면 하트가 안됨
+		// �𼭸��� ���� �簢�� ��谡 ������ ��Ʈ�� �ȵ�
 		if (!((min_nx == min_x && min_ny == min_y) || (min_nx == min_x && max_ny == max_y) || (max_nx == max_x && min_ny == min_y) || (max_nx == max_x && max_ny == max_y)) ) {
 			cout << "0" << "\n";
 			continue;
@@ -147,36 +87,22 @@ int main() {
 
 		nsquare = max_nx - min_nx + 1;
 
-		//작은 사각형이 정사각형 모양이 아니면 하트가 안됨
+		//���� �簢���� ���簢�� ����� �ƴϸ� ��Ʈ�� �ȵ�
 		if (max_ny - min_ny + 1 != nsquare) {
 			cout << "0" << "\n";
 			continue;
 		}
 
-		// 작은사각형 안에 #이 섞여있으면 하트가 안됨
+		// �����簢�� �ȿ� #�� ���������� ��Ʈ�� �ȵ�
 		if (totalCream != msquare * msquare - nsquare * nsquare) {
 			cout << "0" << "\n";
 			continue;
 		}
 
-		//하트 완성 !!
+		//��Ʈ �ϼ� !!
 		cout << "1" << "\n";
 
 	}
 
 	return EXIT_SUCCESS;
 }
-```
-
-
-<br/>
-
-
-
-## 결과 
-
-| 메모리 | 시간 |
-| ------ | ---- |
-| 2020KB    | 0ms  |
-
-
