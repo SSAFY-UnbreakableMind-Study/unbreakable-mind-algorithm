@@ -1,58 +1,3 @@
-## BOJ_13141_P5_Ignition
-- 플로이드 워셜, 브루트 포스
-- https://www.acmicpc.net/problem/13141
-
-
-## 풀이
-
-플로이드 워셜 알고리즘으로 그래프를 초기화 시켜주고,
-브루트 포스를 통해 그래프 양 끝점이 불이 붙는 시각을 계산하여
-문제를 해결하였습니다.
-
-
-<br>
-
-
-```cpp
-//플로이드 워셜 알고리즘
-	for (int i = 1; i <= N; ++i) {
-		for (int j = 1; j <= N; ++j) {
-			for (int k = 1; k <= N; ++k) {
-				_map[j][k] = min(_map[j][k], _map[j][i] + _map[i][k]);
-			}
-		}
-	}
-```
-
-<br>
-
-```cpp
-//브루트 포스를 통한 정답 도출 
-	for (int i = 1; i <= N; ++i) {
-		float maxx = 0;
-		for (auto iter : v) {
-			float a = _map[i][get<0>(iter)];
-			float b = _map[i][get<1>(iter)];
-			float c = get<2>(iter);
-			float dif = abs(a - b);
-
-			if (dif < c) {
-				maxx = max(maxx, max(a, b) + (c - dif) / 2);
-			}
-			else {
-				maxx = max(maxx, min(a, b) + c);
-			}
-
-			if (maxx >= Ans) break;
-		}
-		
-		Ans = min(Ans, maxx);
-	}
-```
-
-
-## 소스코드
-```cpp
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->ios::sync_with_stdio(0); cout.tie(0); setvbuf(stdout, nullptr, _IOFBF, BUFSIZ);
 #define INF INT32_MAX
@@ -70,7 +15,7 @@ int main() {
 
 	cin >> N >> M;
 
-	//그래프 초기화
+	//�׷��� �ʱ�ȭ
 	for (int i = 1; i <= N; ++i) {
 		for (int j = 1; j <= N; ++j) {
 			if (i != j) _map[i][j] = INF;
@@ -78,7 +23,7 @@ int main() {
 		}
 	}
 	
-	//가중치 설정
+	//����ġ ����
 	for (int i = 0; i < M; ++i) {
 		int a, b;
 		float c;
@@ -90,7 +35,7 @@ int main() {
 		v.push_back({ a,b,c });
 	}
 
-	//플로이드 워셜 알고리즘
+	//�÷��̵� ���� �˰�����
 	for (int i = 1; i <= N; ++i) {
 		for (int j = 1; j <= N; ++j) {
 			for (int k = 1; k <= N; ++k) {
@@ -99,7 +44,7 @@ int main() {
 		}
 	}
 
-	//브루트 포스를 통한 정답 도출 
+	//���Ʈ ������ ���� ���� ���� 
 	for (int i = 1; i <= N; ++i) {
 		float maxx = 0;
 		for (auto iter : v) {
@@ -125,16 +70,3 @@ int main() {
 
 	return EXIT_SUCCESS;
 }
-```
-
-
-<br/>
-
-
-## 결과 
-
-| 메모리 | 시간 |
-| ------ | ---- |
-| 2888KB | 12ms |
-
-
