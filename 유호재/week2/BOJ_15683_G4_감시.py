@@ -2,6 +2,7 @@ import copy
 min_value = int(1e9)
 n, m = map(int, input().split())
 graph1 = []
+
 camerainfo = []
 cameradir = [[],
              [[0],[1],[2],[3]],
