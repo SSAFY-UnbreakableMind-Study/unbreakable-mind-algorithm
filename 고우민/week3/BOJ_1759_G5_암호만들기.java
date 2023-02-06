@@ -8,10 +8,24 @@ public class BOJ_1759_G5_암호만들기 {
     static int r, n;
     static char[] data;
 
+    // 모음 자음 개수가 조건을 만족하는지 확인
+    static boolean isValid(char[] arr) {
+        int cnt = 0;
+        for (char c : arr) {
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                cnt++;
+            }
+        }
+        if (cnt > 0 && r - cnt > 1)
+            return true;
+        return false;
+    }
+
     // i : arr의 인덱스, j : data의 인덱스
     static void combi(int i, int j, char[] arr) {
         if (i == r) { // i가 r이 됐다는 것은 arr가 완성됐다는 것. -> 출력
-            System.out.println(arr);
+            if (isValid(arr))
+                System.out.println(arr);
             return;
         }
         if (j == n)
@@ -33,6 +47,7 @@ public class BOJ_1759_G5_암호만들기 {
         }
         Arrays.sort(data); // 데이터 정렬
         combi(0, 0, new char[r]);
+
     }
 
 }
