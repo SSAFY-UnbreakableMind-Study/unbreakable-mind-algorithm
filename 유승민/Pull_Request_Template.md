@@ -1,110 +1,146 @@
-## BOJ_1759_G5_암호 만들기
-- 조합, 브루트포스
-- https://www.acmicpc.net/problem/1759
+## BOJ_5719_P5_거의 최단 경로
+- 그래프, 다익스트라
+- https://www.acmicpc.net/problem/5719
 
 
 ## 풀이
 
-암호가 오름차순이라는 조건을 충족하기 위해 
-정렬을 한번 해주었고, 그 이후
-재귀를 통한 조합을 이용해 문제를 해결하였습니다.
+도착지점까지 걸리는 최솟값을 찾기위해 다익스트라 한번,
+도착지점까지 지나는 경로를 찾기위해 다익스트라 또 한번,
+최적의 경로를 제외하고 차선의 경로를 찾기위해 다익스트라 또 한번
+총 다익스트라 세번을 사용하여 문제를 해결하였습니다.
 
 <br>
 
 
+여기서 나가는 가중치는 최선의 경로를 찾고, 
+차선의 경로를 찾는데 활용됩니다.
+
+<br>
+
 ```cpp
-//조합
-inline void Solve(int64 S, int64 rm, int64 am, int64 pos) {
-	...
-	...
+//가중치 설정
+		for (int64 i = 0; i < M; ++i) {
+			int64 a, b, c;
+			cin >> a >> b >> c;
 
-	//재귀를 통한 조합 구현
-	for (int64 i = pos; i < v.size(); ++i) {
-
-		// 모음인 경우
-		if (v[i] == 'a' || v[i] == 'e' || v[i] == 'i' || v[i] == 'o' || v[i] == 'u') {
-			v1.push_back(v[i]);
-			Solve(S - 1, rm - 1, am, i + 1);
-			v1.pop_back();
+			vio[a].push_back({ c, b }); // 들어오는 가중치
+			vio[b + 500].push_back({ c, a }); // 나가는 가중치
 		}
-
-		//자음인 경우
-		else {
-			v1.push_back(v[i]);
-			Solve(S - 1, rm, am - 1, i + 1);
-			v1.pop_back();
-		}
-	}
-}
 ```
 
 <br>
 
+다익스트라 3번 사용
+첫번째: 도착지점까지 걸리는 최솟값 찾기
+두번째: 도착지점까지 걸리는 최솟값 루트들 찾기
+세번째: 최솟값 루트 제외하고 그다음 차선책 루트 찾기
 
+<br>
+
+```cpp
+		for (int64 i = 0; i < 3; ++i) {
+			//총 3번 실행
+
+			//다익스트라 
+			while (!pq.empty()) {
+				...
+				...
+
+				if(){
+					//특수한 조건부 존재
+				}
+			}
+		}
+```
+
+<br>
 
 ## 소스코드
 ```cpp
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->ios::sync_with_stdio(0); cout.tie(0); setvbuf(stdout, nullptr, _IOFBF, BUFSIZ);
-#define INF INT32_MAX
+#define INF INT64_MAX
 // INT32_MIN, INT64_MIN, INT32_MAX, INT64_MAX
 using namespace std;
 using int64 = int64_t;
 
-vector<char> v, v1;
-
-//조합
-inline void Solve(int64 S, int64 rm, int64 am, int64 pos) {
-	if (rm < 0)rm = 0; // 골라진 모음의 숫자가 최소조건을 충족시 0으로 고정
-	if (am < 0) am = 0; // 골라진 자음의 숫자가 최소조건을 충족시 0으로 고정
-	if (S - rm - am < 0)return; // 백트래킹 (중요)
-	else if (S == 0) { // 전부다 골랐으면 출력
-		for (auto _iter : v1) {
-			cout << _iter;
-		}
-		cout << "\n";
-		return;
-	}
-
-	//재귀를 통한 조합 구현
-	for (int64 i = pos; i < v.size(); ++i) {
-
-		// 모음인 경우
-		if (v[i] == 'a' || v[i] == 'e' || v[i] == 'i' || v[i] == 'o' || v[i] == 'u') {
-			v1.push_back(v[i]);
-			Solve(S - 1, rm - 1, am, i + 1);
-			v1.pop_back();
-		}
-
-		//자음인 경우
-		else {
-			v1.push_back(v[i]);
-			Solve(S - 1, rm, am - 1, i + 1);
-			v1.pop_back();
-		}
-	}
-}
-
 int main() {
 	fastio;
 
-	int64 L, C;
+	while (1) {
+		int64 N, M;
+		cin >> N >> M;
+		if (!(N || M)) break;
 
-	cin >> L >> C;
-	for (int64 i = 0; i < C; ++i) {
-		char a;
-		cin >> a;
-		v.push_back(a);
+		int64 S, D;
+		int64 dist[3][500];
+		bool needCheck[500] = { false, };
+		vector<pair<int64, int64>> vio[1000];
+		priority_queue<pair<int64, int64>> pq;
+
+		cin >> S >> D;
+
+		//가중치 초기화
+		for (int64 i = 0; i < 3; ++i) {
+			for (int64 j = 0; j < N; ++j) {
+				dist[i][j] = INF;
+			}
+		}
+
+		dist[0][S] = 0;
+		dist[1][D] = 0;
+		dist[2][D] = 0;
+		needCheck[D] = true;
+
+		//가중치 설정
+		for (int64 i = 0; i < M; ++i) {
+			int64 a, b, c;
+			cin >> a >> b >> c;
+
+			vio[a].push_back({ c, b }); // 들어오는 가중치
+			vio[b + 500].push_back({ c, a }); // 나가는 가중치
+		}
+		
+		//다익스트라 3번 사용
+		//첫번째: 도착지점까지 걸리는 최솟값 찾기
+		//두번째: 도착지점까지 걸리는 최솟값 루트들 찾기
+		//세번째: 최솟값 루트 제외하고 그다음 차선책 루트 찾기
+		for (int64 i = 0; i < 3; ++i) {
+			dist[0][0]; needCheck[0];
+			if (i == 0) pq.push({ 0, S });
+			else if (i == 1) pq.push({ 0, D });
+			else pq.push({ 0, D });
+
+			while (!pq.empty()) {
+				int64 cur = pq.top().second;
+				int64 dis = -pq.top().first;
+				int64 dir;
+
+				pq.pop();
+
+				if (dist[i][cur] < dis) continue;
+				if (i != 0) dir = cur + 500;
+				else dir = cur;
+
+				for (auto& iter : vio[dir]) {
+					int64 next_c = iter.second;
+					int64 next_d = iter.first + dist[i][cur];
+
+					if (i == 1 && dist[0][cur] == dist[0][next_c] + iter.first && needCheck[cur]) needCheck[next_c] = true;
+					else if (i == 2 && dist[0][cur] == dist[0][next_c] + iter.first && needCheck[cur]) continue;
+
+					if (dist[i][next_c] > next_d) {
+						dist[i][next_c] = next_d;
+						pq.push({ -next_d, next_c });
+					}
+				}
+			}
+		}
+
+		if (dist[2][S] == INF) cout << -1 << "\n";
+		else cout << dist[2][S] << "\n";
 	}
-
-	//정렬시 a c i s t w 순서가 됨
-	sort(v.begin(), v.end());
-
-	// L = 총 골라야 하는 숫자
-	// 1 = 최소 골라야 하는 모음의 숫자 (a, e, i, o u)
-	// 2 = 최소 골라야 하는 자음의 숫자 (나머지)
-	// 0 = 몇번째 index 부터 탐색해야 하는가
-	Solve(L, 1, 2, 0);
 
 	return EXIT_SUCCESS;
 }
@@ -118,6 +154,6 @@ int main() {
 
 | 메모리 | 시간 |
 | ------ | ---- |
-| 2024KB | 0ms |
+| 2684KB | 104ms |
 
 
