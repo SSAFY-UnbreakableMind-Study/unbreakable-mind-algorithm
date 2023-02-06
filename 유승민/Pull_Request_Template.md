@@ -1,52 +1,35 @@
-## BOJ_13141_P5_Ignition
-- 플로이드 워셜, 브루트 포스
-- https://www.acmicpc.net/problem/13141
+## BOJ_27313_G3_효율적인 애니메이션 감상
+- 그리디, 정렬
+- https://www.acmicpc.net/problem/27313
 
 
 ## 풀이
 
-플로이드 워셜 알고리즘으로 그래프를 초기화 시켜주고,
-브루트 포스를 통해 그래프 양 끝점이 불이 붙는 시각을 계산하여
-문제를 해결하였습니다.
-
+정렬을 통해 애니메이션 감상 시간이 적게 걸리는 순서대로 정렬한 후,
+그리디 알고리즘을 통해 문제를 해결하였습니다.
 
 <br>
 
 
 ```cpp
-//플로이드 워셜 알고리즘
-	for (int i = 1; i <= N; ++i) {
-		for (int j = 1; j <= N; ++j) {
-			for (int k = 1; k <= N; ++k) {
-				_map[j][k] = min(_map[j][k], _map[j][i] + _map[i][k]);
-			}
-		}
+// K번째보다 작은 i에 대하여 걸리는 최댓값은 v[i]
+	for (int i = 0; i < K; ++i) {
+		if (i >= v.size()) break;
+		if (v[i] <= M) ans++;
+		else break;
 	}
 ```
 
 <br>
 
 ```cpp
-//브루트 포스를 통한 정답 도출 
-	for (int i = 1; i <= N; ++i) {
-		float maxx = 0;
-		for (auto iter : v) {
-			float a = _map[i][get<0>(iter)];
-			float b = _map[i][get<1>(iter)];
-			float c = get<2>(iter);
-			float dif = abs(a - b);
-
-			if (dif < c) {
-				maxx = max(maxx, max(a, b) + (c - dif) / 2);
-			}
-			else {
-				maxx = max(maxx, min(a, b) + c);
-			}
-
-			if (maxx >= Ans) break;
+// K이상인 i에 대하여 걸리는 최댓값은 v[i] + v[i-K] 
+	for (int i = K; i < v.size(); ++i) {
+		if (v[i] + v[i - K] <= M) {
+			ans++;
+			v[i] += v[i - K];
 		}
-		
-		Ans = min(Ans, maxx);
+		else break;
 	}
 ```
 
@@ -60,68 +43,40 @@
 using namespace std;
 using int64 = int64_t;
 
-int N, M;
-float Ans = INF;
-float _map[201][201];
-vector<tuple<int, int, float>> v;
+int64 ans;
+vector<int64> v;
 
 int main() {
 	fastio;
 
-	cin >> N >> M;
+	int64 N, M, K, Ans = 0;
+	cin >> N >> M >> K;
 
-	//그래프 초기화
-	for (int i = 1; i <= N; ++i) {
-		for (int j = 1; j <= N; ++j) {
-			if (i != j) _map[i][j] = INF;
-			else _map[i][j] = 0;
+	int64 A;
+	for (int i = 0; i < N; ++i) {
+		cin >> A;
+		v.push_back(A);
+	}
+
+	sort(v.begin(), v.end());
+
+	// K번째보다 작은 i에 대하여 걸리는 최댓값은 v[i]
+	for (int i = 0; i < K; ++i) {
+		if (i >= v.size()) break;
+		if (v[i] <= M) ans++;
+		else break;
+	}
+
+	// K이상인 i에 대하여 걸리는 최댓값은 v[i] + v[i-K] 
+	for (int i = K; i < v.size(); ++i) {
+		if (v[i] + v[i - K] <= M) {
+			ans++;
+			v[i] += v[i - K];
 		}
-	}
-	
-	//가중치 설정
-	for (int i = 0; i < M; ++i) {
-		int a, b;
-		float c;
-		cin >> a >> b;
-		cin >> c;
-
-		_map[a][b] = min(_map[a][b], c);
-		_map[b][a] = min(_map[b][a], c);
-		v.push_back({ a,b,c });
+		else break;
 	}
 
-	//플로이드 워셜 알고리즘
-	for (int i = 1; i <= N; ++i) {
-		for (int j = 1; j <= N; ++j) {
-			for (int k = 1; k <= N; ++k) {
-				_map[j][k] = min(_map[j][k], _map[j][i] + _map[i][k]);
-			}
-		}
-	}
-
-	//브루트 포스를 통한 정답 도출 
-	for (int i = 1; i <= N; ++i) {
-		float maxx = 0;
-		for (auto iter : v) {
-			float a = _map[i][get<0>(iter)];
-			float b = _map[i][get<1>(iter)];
-			float c = get<2>(iter);
-			float dif = abs(a - b);
-
-			if (dif < c) {
-				maxx = max(maxx, max(a, b) + (c - dif) / 2);
-			}
-			else {
-				maxx = max(maxx, min(a, b) + c);
-			}
-
-			if (maxx >= Ans) break;
-		}
-		
-		Ans = min(Ans, maxx);
-	}
-	
-	printf("%.1f", Ans);
+	cout << ans;
 
 	return EXIT_SUCCESS;
 }
@@ -135,6 +90,6 @@ int main() {
 
 | 메모리 | 시간 |
 | ------ | ---- |
-| 2888KB | 12ms |
+| 3692KB | 32ms |
 
 
