@@ -1,5 +1,3 @@
-package week1;
-
 import java.util.Scanner;
 
 public class BOJ_1012_S2_유기농배추 {

@@ -1,4 +1,4 @@
-package week0;
+package week2;
 
 /**
  * BOJ_15683_G4_감시
