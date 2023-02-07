@@ -1,7 +1,7 @@
 ## BOJ*1759_G5*암호만들기
 
 - 조합론, 브루트포스, 백트래킹, 수학
-- https://www.acmicpc.net/problem/{문제번호}
+- https://www.acmicpc.net/problem/1759
 
 ## 풀이
 

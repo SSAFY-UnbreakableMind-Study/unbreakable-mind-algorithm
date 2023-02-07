@@ -1,8 +1,11 @@
+package week1;
+
 import java.util.Scanner;
 
 public class BOJ_1012_S2_유기농배추 {
 
 	public static void main(String[] args) {
+		int[][] delta = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
 		Scanner sc = new Scanner(System.in);
 
 		int TC = Integer.parseInt(sc.nextLine());
