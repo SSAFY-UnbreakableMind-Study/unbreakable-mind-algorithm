@@ -68,6 +68,7 @@ public class BOJ_15686_G5_치킨배달 {
         for (int[][] c : combi) {
             cityDist = Math.min(cityDist, getCityDist(house, c));
         }
+
         System.out.println(cityDist);
     }
 }
