@@ -1,48 +1,3 @@
-## BOJ*2447_G5*별찍기 - 10
-
-- 분할정복(Divide and Conquer), 재귀(Recursive)
-- https://www.acmicpc.net/problem/2447
-
-## 풀이
-
-- N*N을 N/3*N/3 크기의 블럭 9개로 나누기
-  N*N의 전체 크기를 9개로 나누어 그 중 가운데 블록 (3*3 기준 (1,1))에 whitespace 채움
-- 가운데를 제외한 나머지 블럭은 재귀 호출
-  블럭이 점점 작아져 3*3이 된다면 가운데 하나만 공백이고, 나머진 *채우기
-
-```java
-/*풀이 코드 작성*/
-private static void stamp(int n, int x, int y) {
-	//n*n크기의 공간을 3*3 등분해서 divide
-	int partSize = n/3;
-	if (n == 1) return;
-
-	//작은 공간 (9개 중 한 덩어리)
-	for (int k=0; k<9; k++) {
-		//x, y는 내가 호출된 지역 (블록의 인덱스)
-		//j, i는 이번에 내가 가야될 지역
-		int j =k%3;
-		int i =k/3;
-		//가운데 일 때 whitespace 출력
-		if (k==4) {
-			stampWhite(partSize, x, y);
-			continue;
-		}
-		// 가운데 아닐 땐,
-		// 최소 크기면 *찍고 아니면 더 작은 재귀 호출
-		if (n==3) {
-			map[x+i][y+j] = '*';
-		} else {
-			stamp(partSize, x+partSize*j, y+partSize*i);
-		}
-
-	}
-}
-```
-
-## 소스코드
-
-```java
 package week3;
 
 import java.io.BufferedReader;
@@ -111,11 +66,3 @@ public class BOJ_2447_G5_별찍기 {
 	}
 
 }
-
-```
-
-## 결과
-
-| 메모리   | 시간   |
-| -------- | ------ |
-| 34516 KB | 292 ms |
