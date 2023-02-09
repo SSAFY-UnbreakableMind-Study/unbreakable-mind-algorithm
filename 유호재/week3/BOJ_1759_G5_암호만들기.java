@@ -1,22 +1,4 @@
-## BJ_2447_별찍기
-- 조합
-- https://www.acmicpc.net/problem/1759
-
-
-
-## 풀이
-입력받은 문자로 만들 수 있는 모든 조합 생성
-만들어진 조합 중 조건을 만족하는 조합만 저장
-
-~~~java
-for(int i = start; i < c; i++) {
-			cases[cnt] = keylist[i];
-			com(cnt+1, i+1);
-		}
-~~~
-
-## 소스코드
-~~~java
+package month02.date08;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -73,11 +55,5 @@ public class BOJ_1759_G5_암호만들기 {
 		}
 	}
 }
-~~~
 
-## 결과 
-pypy
-| 메모리  | 시간 |
-|----|----|
-| 14228 KB| 140ms|
 
