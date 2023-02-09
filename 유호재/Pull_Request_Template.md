@@ -1,4 +1,4 @@
-## BJ_2447_별찍기
+## BOJ_1759_G5_암호만들기 
 - 조합
 - https://www.acmicpc.net/problem/1759
 
@@ -76,7 +76,7 @@ public class BOJ_1759_G5_암호만들기 {
 ~~~
 
 ## 결과 
-pypy
+
 | 메모리  | 시간 |
 |----|----|
 | 14228 KB| 140ms|
