@@ -1,47 +1,3 @@
-## BOJ_7512_G3_연속하는 소수의 합
-- 분할 정복, 재귀
-- https://www.acmicpc.net/problem/2447
-
-
-## 풀이
-
-모든 맵을 * 로 맵핑 후 가장 큰 빈공간부터 재귀를 실행해 
-차례대로 작은 빈공간을 채워가는 방식으로 문제를 해결하였습니다.
-
-<br>
-
-```cpp
- //재귀 함수
-	static void makeStar(int center_x, int center_y, int degree) {
-		int boundary = degree / 2;
-
-		//빈공간 찍기
-		for (int i = center_x - boundary; i <= center_x + boundary; ++i) {
-			for (int j = center_y - boundary; j <= center_y + boundary; ++j) {
-				star[i][j] = true;
-			}
-		}
-		
-		//기저 조건
-		if (boundary == 0)
-			return;
-		
-		//재귀 실행
-		for (int i = -1; i < 2; ++i) {
-			for (int j = -1; j < 2; ++j) {
-				makeStar(center_x + i * degree, center_y + j * degree, degree / 3);
-			}
-		}
-		
-	}
-```
-
-<br>
-
-
-
-## 소스코드
-```cpp
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -105,16 +61,3 @@ public class Main {
 		System.out.print(sb.toString());
 	}
 }
-```
-
-
-<br/>
-
-
-## 결과 
-
-| 메모리 | 시간 |
-| ------ | ---- |
-| 44580KB | 372ms |
-
-
