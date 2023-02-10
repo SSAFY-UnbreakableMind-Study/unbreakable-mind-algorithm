@@ -1,39 +1,37 @@
 ## BOJ_7512_G3_연속하는 소수의 합
-- 분할 정복, 재귀
-- https://www.acmicpc.net/problem/2447
+- 자료구조, 스택
+- https://www.acmicpc.net/problem/3015
 
 
 ## 풀이
 
-모든 맵을 * 로 맵핑 후 가장 큰 빈공간부터 재귀를 실행해 
-차례대로 작은 빈공간을 채워가는 방식으로 문제를 해결하였습니다.
+한사람씩 입력받으면서
+마지막 사람부터 처음사람으로 탐색방향을 잡고
+앞사람이 키가 더 큰 사람이면 탐색 종료 후 스택에 저장
+앞사람이 키가 같은 사람이면 탐색 지속 후 스택에 저장
+앞사람이 키가 작은 사람이면 앞사람을 스택에서 빼고 탐색 지속 후 저장하여
+문제를 해결하였습니다.
 
 <br>
 
 ```cpp
- //재귀 함수
-	static void makeStar(int center_x, int center_y, int degree) {
-		int boundary = degree / 2;
+			//앞사람이 더 작은사람이면 pop
+			if (vp[j].first < A) {
+				Ans += vp[j].second;
+				vp.pop_back();
+			}
 
-		//빈공간 찍기
-		for (int i = center_x - boundary; i <= center_x + boundary; ++i) {
-			for (int j = center_y - boundary; j <= center_y + boundary; ++j) {
-				star[i][j] = true;
+			//키가 같은사람이면 idx 에 위치 저장해놓음
+			else if (vp[j].first == A) {
+				Ans += vp[j].second;
+				idx = j;
 			}
-		}
-		
-		//기저 조건
-		if (boundary == 0)
-			return;
-		
-		//재귀 실행
-		for (int i = -1; i < 2; ++i) {
-			for (int j = -1; j < 2; ++j) {
-				makeStar(center_x + i * degree, center_y + j * degree, degree / 3);
+
+			//키가 큰사람이면 한명밖에 못봄
+			else {
+				Ans++;
+				break;
 			}
-		}
-		
-	}
 ```
 
 <br>
@@ -42,68 +40,61 @@
 
 ## 소스코드
 ```cpp
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+#include <bits/stdc++.h>
+#define fastio cin.tie(0)->ios::sync_with_stdio(0); cout.tie(0); setvbuf(stdout, nullptr, _IOFBF, BUFSIZ);
+#define INF INT32_MAX
+// INT32_MIN, INT64_MIN, INT32_MAX, INT64_MAX
+using namespace std;
+using int64 = int64_t;
 
-public class Main {
+int64 N, A;
+int64 Ans = 0;
+vector<pair<int64, int64>> vp;
 
-	static int N;
-	static boolean star[][];
+int main() {
+	fastio;
 
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static StringBuilder sb = new StringBuilder();
+	//사람 몇명인가
+	cin >> N;
 
-    //재귀 함수
-	static void makeStar(int center_x, int center_y, int degree) {
-		int boundary = degree / 2;
+	//초기값 설정
+	cin >> A;
+	vp.push_back({ A, 1 });
 
-		//빈공간 찍기
-		for (int i = center_x - boundary; i <= center_x + boundary; ++i) {
-			for (int j = center_y - boundary; j <= center_y + boundary; ++j) {
-				star[i][j] = true;
+	for (int i = 1; i < N; ++i) {
+		cin >> A; //이번에 들어오는 사람의 키
+
+		int idx = -1; // 키가 같은사람 판별용 변수
+
+		for (int j = vp.size() - 1; j >= 0; --j) {
+
+			//앞사람이 더 작은사람이면 pop
+			if (vp[j].first < A) {
+				Ans += vp[j].second;
+				vp.pop_back();
+			}
+
+			//키가 같은사람이면 idx 에 위치 저장해놓음
+			else if (vp[j].first == A) {
+				Ans += vp[j].second;
+				idx = j;
+			}
+
+			//키가 큰사람이면 한명밖에 못봄
+			else {
+				Ans++;
+				break;
 			}
 		}
-		
-		//기저 조건
-		if (boundary == 0)
-			return;
-		
-		//재귀 실행
-		for (int i = -1; i < 2; ++i) {
-			for (int j = -1; j < 2; ++j) {
-				makeStar(center_x + i * degree, center_y + j * degree, degree / 3);
-			}
-		}
-		
+
+		// 이번에 들어왔던 사람 위치 저장
+		if (idx == -1) vp.push_back({ A, 1 });
+		else vp[idx].second++;
 	}
 
-	public static void main(String[] args) throws Exception {
+	cout << Ans;
 
-		// N 입력받는 부분
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-
-		// 배열 모든공간 *로 세팅
-		star = new boolean[N][N];
-
-		//빈공간 찍기
-		makeStar(N / 2, N / 2, N / 3);
-
-		//출력하기
-		for (int i = 0; i < N; ++i) {
-			for (int j = 0; j < N; ++j) {
-				if (star[i][j])
-					sb.append(" ");
-				else
-					sb.append("*");
-			}
-			sb.append("\n");
-		}
-
-		System.out.print(sb.toString());
-	}
+	return EXIT_SUCCESS;
 }
 ```
 
@@ -115,6 +106,6 @@ public class Main {
 
 | 메모리 | 시간 |
 | ------ | ---- |
-| 44580KB | 372ms |
+| 2020KB | 72ms |
 
 
