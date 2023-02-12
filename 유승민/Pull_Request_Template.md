@@ -1,41 +1,55 @@
-## BOJ_7512_G3_연속하는 소수의 합
-- 자료구조, 스택
-- https://www.acmicpc.net/problem/3015
+## BOJ_14942_P5_개미
+- 트리, 희소배열
+- https://www.acmicpc.net/problem/14942
 
 
 ## 풀이
 
-한사람씩 입력받으면서
-마지막 사람부터 처음사람으로 탐색방향을 잡고
-앞사람이 키가 더 큰 사람이면 탐색 종료 후 스택에 저장
-앞사람이 키가 같은 사람이면 탐색 지속 후 스택에 저장
-앞사람이 키가 작은 사람이면 앞사람을 스택에서 빼고 탐색 지속 후 저장하여
-문제를 해결하였습니다.
+희소배열을 이용하여 자신보다 2^n 번째 위에있는 굴까지의 거리를 맵핑하였습니다.
+이때 트리에서의 dp를 활용하여 맵핑을 O(n)시간만에 실행할 수 있습니다.
+그 후 희소배열을 탐색하면서 지상과 가장 가까이 갈 수 있는 굴을 탐색하였습니다.
 
 <br>
 
 ```cpp
-			//앞사람이 더 작은사람이면 pop
-			if (vp[j].first < A) {
-				Ans += vp[j].second;
-				vp.pop_back();
-			}
+// 희소배열 맵핑 
+inline void setArr(int64 cur, int64 parent, int64 dis) {
+	rareArr[cur][0].first = parent;
+	rareArr[cur][0].second = dis;
 
-			//키가 같은사람이면 idx 에 위치 저장해놓음
-			else if (vp[j].first == A) {
-				Ans += vp[j].second;
-				idx = j;
-			}
+	//자신으로부터 2^i 번째 위에있는 굴까지 가는데 걸리는 비용
+	for (int64 i = 1; i < 18; ++i) {
+		rareArr[cur][i].first = rareArr[rareArr[cur][i - 1].first][i - 1].first;
+		rareArr[cur][i].second = rareArr[rareArr[cur][i - 1].first][i - 1].second + rareArr[cur][i - 1].second;
+	}
 
-			//키가 큰사람이면 한명밖에 못봄
-			else {
-				Ans++;
-				break;
-			}
+	for (auto& iter : vp[cur]) {
+		if (iter.first == parent) continue;
+		setArr(iter.first, cur, iter.second);
+	}
+}
 ```
 
 <br>
 
+```cpp
+//재귀를 이용하여 가장 지상과 가까운 굴 찾기
+inline int64 findLD(int64 cur, int64 eny) {
+	if (eny - rareArr[cur][0].second < 0) return cur;
+	else {
+		for (int64 i = 1; i < 18; ++i) {
+			if (eny - rareArr[cur][i].second < 0) return findLD(rareArr[cur][i - 1].first, eny - rareArr[cur][i - 1].second);
+		}
+	}
+
+	return 1;
+}
+```
+
+
+
+
+<br>
 
 
 ## 소스코드
@@ -47,52 +61,61 @@
 using namespace std;
 using int64 = int64_t;
 
-int64 N, A;
-int64 Ans = 0;
-vector<pair<int64, int64>> vp;
+int64 N;
+int64 energy[100001];
+pair<int64, int64> rareArr[100001][18];
+vector<pair<int64, int64>> vp[100001];
+
+//재귀를 이용하여 가장 지상과 가까운 굴 찾기
+inline int64 findLD(int64 cur, int64 eny) {
+	if (eny - rareArr[cur][0].second < 0) return cur;
+	else {
+		for (int64 i = 1; i < 18; ++i) {
+			if (eny - rareArr[cur][i].second < 0) return findLD(rareArr[cur][i - 1].first, eny - rareArr[cur][i - 1].second);
+		}
+	}
+
+	return 1;
+}
+
+// 희소배열 맵핑 
+inline void setArr(int64 cur, int64 parent, int64 dis) {
+	rareArr[cur][0].first = parent;
+	rareArr[cur][0].second = dis;
+
+	//자신으로부터 2^i 번째 위에있는 굴까지 가는데 걸리는 비용
+	for (int64 i = 1; i < 18; ++i) {
+		rareArr[cur][i].first = rareArr[rareArr[cur][i - 1].first][i - 1].first;
+		rareArr[cur][i].second = rareArr[rareArr[cur][i - 1].first][i - 1].second + rareArr[cur][i - 1].second;
+	}
+
+	for (auto& iter : vp[cur]) {
+		if (iter.first == parent) continue;
+		setArr(iter.first, cur, iter.second);
+	}
+}
 
 int main() {
 	fastio;
 
-	//사람 몇명인가
 	cin >> N;
 
-	//초기값 설정
-	cin >> A;
-	vp.push_back({ A, 1 });
-
-	for (int i = 1; i < N; ++i) {
-		cin >> A; //이번에 들어오는 사람의 키
-
-		int idx = -1; // 키가 같은사람 판별용 변수
-
-		for (int j = vp.size() - 1; j >= 0; --j) {
-
-			//앞사람이 더 작은사람이면 pop
-			if (vp[j].first < A) {
-				Ans += vp[j].second;
-				vp.pop_back();
-			}
-
-			//키가 같은사람이면 idx 에 위치 저장해놓음
-			else if (vp[j].first == A) {
-				Ans += vp[j].second;
-				idx = j;
-			}
-
-			//키가 큰사람이면 한명밖에 못봄
-			else {
-				Ans++;
-				break;
-			}
-		}
-
-		// 이번에 들어왔던 사람 위치 저장
-		if (idx == -1) vp.push_back({ A, 1 });
-		else vp[idx].second++;
+	for (int64 i = 1; i <= N; ++i) {
+		cin >> energy[i];
 	}
 
-	cout << Ans;
+	for (int64 i = 1; i < N; ++i) {
+		int64 a, b, c;
+		cin >> a >> b >> c;
+
+		vp[a].push_back({ b,c });
+		vp[b].push_back({ a,c });
+	}
+
+	setArr(1, 1, 0);
+	for (int64 i = 1; i <= N; ++i) {
+		cout << findLD(i, energy[i]) << "\n";
+	}
 
 	return EXIT_SUCCESS;
 }
@@ -106,6 +129,6 @@ int main() {
 
 | 메모리 | 시간 |
 | ------ | ---- |
-| 2020KB | 72ms |
+| 38424KB | 104ms |
 
 
