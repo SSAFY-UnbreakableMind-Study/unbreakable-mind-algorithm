@@ -1,54 +1,3 @@
-## BOJ*2447_G5*별찍기 - 10
-
-- 분할정복(Divide and Conquer), 재귀(Recursive)
-- https://www.acmicpc.net/problem/2447
-
-## 풀이
-
-- N*N을 N/3*N/3 크기의 블럭 9개로 나누기
-  N*N의 전체 크기를 9개로 나누어 그 중 가운데 블록 (3*3 기준 (1,1))에 whitespace 채움
-- 가운데를 제외한 나머지 블럭은 재귀 호출
-  블럭이 점점 작아져 3*3이 된다면 가운데 하나만 공백이고, 나머진 *채우기
-
-```java
-**
-	 * 나를 전체 n*n 정사각형으로 보고, 9등분을 해서 작은 부분을 해결
-	 * @param n : 현재의 가로 길이 (시작은 N),
-	 *
-	 * @param x : 내가 호출된 인덱스 (나를 호출한 이전의 큰 정사각형에서 내가 몇번째 였는지)
-	 * @param y
-	 */
-	private static void stamp(int n, int x, int y) {	//xy는 큰변의 시작인덱스
-		//n*n크기의 공간을 3*3 등분해서 divide
-		int partSize = n/3;
-		if (n == 1) return;
-
-		//작은 공간 (9개 중 한 덩어리)
-		for (int k=0; k<9; k++) {
-			//j, i는 내가 9등분한 작은 블록들의 인덱스
-			int j =k%3;	//k=5 인데, 2
-			int i =k/3;	//1
-			//작은 블럭 9개 중 가운데 (1,1)은 따로 재귀 안하고 공백 찍기
-			if (k==4) {
-				stampWhite(partSize, x, y);
-				continue;
-			}
-			// 가운데 아닐 땐,
-			// 9등분한 작은 사각형이 별을 찍어야 할 최소 크기이면
-			// *찍고 아니면 더 작은 재귀 호출 하면서 나를 계속 작게 분할
-			if (n==3) {
-				map[x+i][y+j] = '*';
-			} else {
-				stamp(partSize, x+partSize*j, y+partSize*i);
-			}
-
-		}
-	}
-```
-
-## 소스코드
-
-```java
 package week3;
 
 import java.io.BufferedReader;
@@ -62,18 +11,18 @@ public class BOJ_2447_G5_별찍기 {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
+		
 		//input
-		int N = Integer.parseInt(br.readLine());
+		int N = Integer.parseInt(br.readLine());		
 		map = new char[N][N];
-
+		
 		//solving
 		/**
 		 * 시작 크기는 N
 		 * 시작할 때 나를 호출한 더 큰 사각형은 없으니까 내 시작 인덱스는 (0, 0)
 		 */
-		stamp(N, 0, 0);
-
+		stamp(N, 0, 0);	
+		
 		//output
 		for (int i=0; i<N; i++) {
 			bw.write(String.copyValueOf(map[i])+"\n");
@@ -81,11 +30,11 @@ public class BOJ_2447_G5_별찍기 {
 		bw.close();
 		br.close();
 	}
-
+	
 	/**
 	 * 나를 전체 n*n 정사각형으로 보고, 9등분을 해서 작은 부분을 해결
 	 * @param n : 현재의 가로 길이 (시작은 N),
-	 *
+	 * 
 	 * @param x : 내가 호출된 인덱스 (나를 호출한 이전의 큰 정사각형에서 내가 몇번째 였는지)
 	 * @param y
 	 */
@@ -93,7 +42,7 @@ public class BOJ_2447_G5_별찍기 {
 		//n*n크기의 공간을 3*3 등분해서 divide
 		int partSize = n/3;
 		if (n == 1) return;
-
+		
 		//작은 공간 (9개 중 한 덩어리)
 		for (int k=0; k<9; k++) {
 			//j, i는 내가 9등분한 작은 블록들의 인덱스
@@ -103,16 +52,16 @@ public class BOJ_2447_G5_별찍기 {
 			if (k==4) {
 				stampWhite(partSize, x, y);
 				continue;
-			}
+			} 
 			// 가운데 아닐 땐,
 			// 9등분한 작은 사각형이 별을 찍어야 할 최소 크기이면
 			// *찍고 아니면 더 작은 재귀 호출 하면서 나를 계속 작게 분할
 			if (n==3) {
 				map[x+i][y+j] = '*';
-			} else {
+			} else { 
 				stamp(partSize, x+partSize*j, y+partSize*i);
 			}
-
+				
 		}
 	}
 	//공백 찍기
@@ -125,13 +74,5 @@ public class BOJ_2447_G5_별찍기 {
 			}
 		}
 	}
-
-}
-
-```
-
-## 결과
-
-| 메모리   | 시간   |
-| -------- | ------ |
-| 34516 KB | 292 ms |
+	
+} 

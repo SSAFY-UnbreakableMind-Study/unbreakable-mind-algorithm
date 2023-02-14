@@ -107,4 +107,18 @@ static void findTarget(){
 | BOJ | 15683 | [감시](https://www.acmicpc.net/problem/15683) | 구현 | G4 |
 
 
+### 🏃🏻‍♂️week 3
+
+|Type | 문제 | 제목 | 유형 | 등급|
+|--- | --- | --- | --- | ---|
+| BOJ | 1759 | [암호 만들기](https://www.acmicpc.net/problem/1759) | 조합론, 브루트포스 | G5 |
+| BOJ | 2447 | [별 찍기 - 10](https://www.acmicpc.net/problem/2447) | 분할정복, 재귀 | G5 |
+
+
+### 🏃🏻‍♂️week 4
+
+|Type | 문제 | 제목 | 유형 | 등급|
+|--- | --- | --- | --- | ---|
+| BOJ | 3190 | [뱀](https://www.acmicpc.net/problem/3190) | 구현 | G4 |
+| PG | 연습문제 | [택배상자](https://school.programmers.co.kr/learn/courses/30/lessons/131704) | 스택 | Lv2 |
 
