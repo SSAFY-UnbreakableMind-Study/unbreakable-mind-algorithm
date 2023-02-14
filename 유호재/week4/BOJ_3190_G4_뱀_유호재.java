@@ -1,30 +1,3 @@
-## BJ_3190_G4_뱀_유호재
-- 구현, 자료구조, 시뮬레이션, 덱, 큐
-- https://www.acmicpc.net/problem/3190
-
-
-
-## 풀이
-최대시간 10000초 동안 반복문 순회
-현재 시간에 방향전환 여부 확인(있는 경우 전환)
-이동 실행 시 게임오버 여부 확인
-게임오버가 아닌경우 이동 실행
-이동 실행 후 사과 여부 확인 및 처리
-
-~~~java
-if(graph[x][y] == 1) {
-				graph[x][y] = 2;
-				snake.add(new int[] {x,y});
-			}else {
-				graph[x][y] = 2;
-				snake.add(new int[] {x,y});
-				int[] out = snake.remove();
-				graph[out[0]][out[1]] = 0;
-			}
-~~~
-
-## 소스코드
-~~~java
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -107,12 +80,3 @@ public class BJ_3190_뱀_유호재 {
 		System.out.println(answer+1);
 	}
 }
-~~~
-
-
-## 결과 
-
-| 메모리  | 시간 |
-|----|----|
-| 14688 KB| 136ms|
-
