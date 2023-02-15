@@ -50,6 +50,7 @@ public class BJ_3190_뱀_유호재 {
 		snake.add(new int[] {x,y});
 		graph[x][y] = 2;
 		for(int time = 0; time <= 10000; time++) {
+			// 현재 시간에 방향 전환정보 확인
 			if(dirinfo[time] != null) {
 				temp = dirinfo[time];
 				if(temp.equals("D")) {
@@ -58,6 +59,8 @@ public class BJ_3190_뱀_유호재 {
 					dir = (dir +3)%4;
 				}
 			}
+
+			// 앞으로의 진행방향을 확인
 			nx = x + dx[dir];
 			ny = y + dy[dir];
 			if(nx <= 0 || ny <= 0 || nx > n || ny > n || graph[nx][ny] == 2) {
@@ -67,6 +70,7 @@ public class BJ_3190_뱀_유호재 {
 			x = nx;
 			y = ny;
 			
+			//사과를 만날지 확인
 			if(graph[x][y] == 1) {
 				graph[x][y] = 2;
 				snake.add(new int[] {x,y});
