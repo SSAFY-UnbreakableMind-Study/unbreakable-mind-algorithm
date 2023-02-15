@@ -1,41 +1,3 @@
-## BOJ_11723_S5_집합
-
-- 비트 마스킹
-- https://www.acmicpc.net/problem/11723
-
-## 풀이
-
-- 비트 마스킹 이용하기
-	특정 위치에 true 마킹 (1로 칠하기)		==>		flag | 1<<x;
-	특정 위치에 false 마킹 (0으로 칠하기)	==>		flag & ~(1<<x);
-	특정 위치가 true인지 체크				==>		(flag & 1<<x)>0 ? 1 : 0 
-	특정 위치에 현재 상태 반대로 토글 버튼	==>		(flag&1<<x) == 1<<x ? flag&~(1<<x) : flag|1<<x;
-```java
-
-case "add":
-	flag  = flag | 1<<x;
-	break;
-case "remove":
-	flag = flag & ~(1<<x);
-	break;
-case "check":
-	sb.append((((flag & 1<<x)>0)?1:0)+"\n");
-	break;
-case "toggle":
-	flag = (flag&1<<x) == 1<<x ? flag&~(1<<x) : flag|1<<x;	//체크 되어 있으면 0으로 아니면 1로
-	break;
-case "all":
-	flag = flag|~0;
-	break;
-case "empty":
-	flag = flag&0;
-	break;
-
-```
-
-## 소스코드
-
-```java
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -85,11 +47,3 @@ public class BOJ_11723_S5_집합 {
 	}
 
 }
-
-```
-
-## 결과
-
-| 메모리   | 시간   |
-| -------- | ------ |
-| 313136 KB | 1232 ms |
