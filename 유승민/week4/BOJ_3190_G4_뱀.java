@@ -1,36 +1,3 @@
-## BOJ_3190_G4_뱀
-- 구현, 덱, 큐
-- https://www.acmicpc.net/problem/3190
-
-
-## 풀이
-
-N * N 의 공간에서 뱀이 탐색을 하는 문제로
-뱀이 사과를 먹을시 몸 길이를 줄이지 않고 탐색 계속
-뱀이 사과를 못 먹을시 몸 길이를 줄이면서 탐색 계속
-뱀이 맵 밖으로 이동하거나, 자기 몸에 닿으면 탐색 종료
-탐색 종료 시간을 출력하는 문제이다.
-
-<br>
-
-```cpp
-	//탐색 방향 바꾸는 시간과 바꿀 방향
-	static Queue<Pair> chngD = new LinkedList<>();
-
-	//몸 길이 줄이기 위한 queue
-	static Queue<int[]> body = new LinkedList<>();
-
-	//BFS탐색용 q
-	static Queue<int[]> q = new LinkedList<>();
-
-```
-
-<br>
-
-
-
-## 소스코드
-```cpp
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
@@ -162,16 +129,3 @@ public class Main {
 	}
 
 }
-```
-
-
-<br/>
-
-
-## 결과 
-
-| 메모리 | 시간 |
-| ------ | ---- |
-| 15120KB | 144ms |
-
-
