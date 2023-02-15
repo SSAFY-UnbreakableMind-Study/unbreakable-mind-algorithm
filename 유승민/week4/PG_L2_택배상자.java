@@ -1,45 +1,3 @@
-## PG_L2_택배상자
-- 스택
-- https://school.programmers.co.kr/learn/courses/30/lessons/131704
-
-
-## 풀이
-
-현재 메인컨테이너에 있는 품목이 다음 배달 순서보다 작으면 보조 컨테이너에 push
-현재 메인컨테이너에 있는 품목이 다음 배달 순서와 같으면 answer++
-현재 메인컨테이너에 있는 품목이 다음 배달 순서보다 작으면 보조 컨테이너 확인
-위와 같은 방식으로 문제를 해결하였습니다.
-
-<br>
-
-```cpp
-				//현재 컨테이너와 배달 순서가 같을때
-				if(container == order[pointer]){
-                    answer++; pointer++; container++;
-                }
-                
-                //현재 컨테이너보다 배달 순서의 크기가 클때
-                else if(container < order[pointer]){
-                    stack.push(container);
-                    container++;
-                }
-
-                //현재 컨테이너보다 배달 순서의 크기가 작을때
-                else{
-                    if(stack.pop() == order[pointer]){
-                        answer++; pointer++;
-                    }
-                    else break;
-                }
-
-```
-
-<br>
-
-
-
-## 소스코드
-```cpp
 import java.util.*;
 
 class PG_L2_택배상자{
@@ -87,18 +45,4 @@ class PG_L2_택배상자{
         }
     }
 }
-
-
-```
-
-
-<br/>
-
-
-## 결과 
-
-| 메모리 | 시간 |
-| ------ | ---- |
-| -KB | -ms |
-
 
