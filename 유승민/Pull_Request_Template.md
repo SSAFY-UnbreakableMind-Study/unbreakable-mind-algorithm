@@ -1,4 +1,4 @@
-## PG_L2_택배상자
+## BOJ_3190_G4_뱀
 - 구현, 덱, 큐
 - https://www.acmicpc.net/problem/3190
 
