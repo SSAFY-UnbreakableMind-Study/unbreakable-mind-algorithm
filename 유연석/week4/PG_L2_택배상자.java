@@ -1,41 +1,3 @@
-## PG_L2_택배상자
-
-- Queue, Stack
-- https://school.programmers.co.kr/learn/courses/30/lessons/131704
-
-## 풀이
-
-- 벨트에 들어오는 상자를 n번 받음
-	이 때, 오더 받은 상자 번호와 일치하면 큐에 넣는다.
-	일치하지 않은 경우
-	벨트의 상자번호 < 오더 받은 상자 번호이면,
-		현재 벨트의 상자는 임시 보관함(스택)에 넣음.
-	벨트의 상자가 더 크다면 이미 벨트의 앞에서 나온 상자이므로 스택을 열어 봄.
-		스택 맨 위에 있으면 큐에 넣고, 없으면 종료함.
-
-	벨트의 상자를 모두 꺼낸 후 아직 스택에 남은 상자가 있다면 오더 받은 번호와 비교해서 추가해줌.
-
-```java
-
-//오더 받은 박스랑 현재 벨트의 박스가 다를 경우
-if (order[orderi] > belt){	// 벨트 뒤편에 아직 원하는 상자가 있는 경우 => 현재 벨트의 상자는 임시 보관함
-stack.push(belt);
-continue;
-} else {					// 벨트 뒤에 더 이상 찾는 상자 안오는 경우 => 임시 보관함 맨 앞만 보기
-// 스택 맨 앞에 보관중인 경우
-if ((!stack.isEmpty()) && (order[orderi]==stack.peek())) {
-	queue.offer(stack.pop());
-	orderi++;
-	belt--;
-	continue;
-} else return queue.size();
-}
-
-```
-
-## 소스코드
-
-```java
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
@@ -90,21 +52,3 @@ public class PG_L2_택배상자 {
 	}
 
 }
-
-
-```
-
-## 결과
-
-| 메모리   | 시간   |
-| -------- | ------ |
-| 93.1 MB | 7.20 ms |
-| 118 MB | 22.76 ms |
-| 135 MB | 22.82 ms |
-| 118 MB | 26.44 ms |
-| 151 MB | 55.90 ms |
-| 108 MB | 30.14 ms |
-| 163 MB | 57.92 ms |
-| 87.1 MB | 8.19 ms |
-| 125 MB | 39.06 ms |
-| 172 MB | 69.16 ms |
