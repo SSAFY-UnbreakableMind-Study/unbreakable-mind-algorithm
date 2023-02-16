@@ -1,50 +1,3 @@
-## BOJ_310_G4_뱀
-
-- 덱(큐), 구현, 자료구조, 시뮬레이션
-- https://www.acmicpc.net/problem/3190
-
-## 풀이
-
-- 하나의 리스트가 있다고 할 때, 맨 앞과 맨 뒤의 값을 바로 처리할 수 있는 자료구조가 필요
-	(큐 혹은 덱 같은)
-- 문제를 차분히 읽고, 구현한 기능의 순서가 매우 중요. 시간 바꿔주는 타이밍과 뱀이 움직이는 타이밍
-```java
-
-//이동하면 시간 증가
-while (time<10000) {
-	/**
-	 * 0~1초 동안 움직임
-	 * 1초 끝나면 뱀 방향 바꾸기
-	 */
-	//이동하면 시간 증가
-	time++;
-	
-	//뱀 이동
-	int ni = queue.peekLast().y + delta[di][0];
-	int nj = queue.peekLast().x + delta[di][1];
-	if (!isValid(ni, nj)) break;		//경계선 걸리면 나가야 함
-	if (board[ni][nj] == 1) break;		//뱀이 자기 몸을 만나면 멈추기
-	
-	if (board[ni][nj] != 2) {			//사과 없으면 원래 뱀 꼬리는 지워줌
-		Pos tail = queue.pollFirst();
-		board[tail.y][tail.x] = 0;
-	}
-	queue.offerLast(new Pos(nj, ni));	//몸길이를 늘려 머리를 다음 칸에 위치
-	board[ni][nj] = 1;					//뱀 머리 이동
-	
-	//방향 바꿀 시간 되면 방향 바꾸기
-	if (instIdx<L && time==inst[instIdx].time) {
-		di = direction(di, inst[instIdx].direction);	//방향 설정, 다음 명령어로 가기 위해 명령어 인덱스 ++
-		instIdx++;
-	}
-	
-}
-
-```
-
-## 소스코드
-
-```java
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -151,10 +104,3 @@ class Pos {
 		this.y = y;
 	}
 }
-```
-
-## 결과
-
-| 메모리   | 시간   |
-| -------- | ------ |
-| 14304 KB | 132 ms |
