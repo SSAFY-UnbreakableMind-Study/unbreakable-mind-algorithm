@@ -1,36 +1,3 @@
-## BOJ_3190_G4_ë±€
-- LCA, í¬ì†Œ ë°°ì—´
-- https://www.acmicpc.net/problem/3176
-
-
-## í’€ì´
-
-í¬ì†Œë°°ì—´ê³¼, íŠ¸ë¦¬ì—ì„œì˜DPë¥¼ ì´ìš©í•˜ì—¬ 2 ^ N ë²ˆì§¸ì— ìˆëŠ” ì¡°ìƒ,
-ì¡°ìƒê¹Œì§€ì˜ ìµœëŒ€, ìµœì†Œ ê±°ë¦¬ë¥¼ êµ¬í•˜ì—¬ ë¬¸ì œë¥¼ í•´ê²°í•˜ì˜€ìŠµë‹ˆë‹¤.
-
-<br>
-
-```cpp
-//ì •ë‹µì„ êµ¬í•˜ëŠ” ë¶€ë¶„
-inline void LCA(int a, int b)
-
-//ìµœì†Ÿê°’ ë§µí•‘
-inline void initMinTree(int cur, int dis)
-
-//ìµœëŒ“ê°’ ë§µí•‘
-inline void initMaxTree(int cur, int dis)
-
-//ë¶€ëª¨ë…¸ë“œ ë§µí•‘
-inline void initTree(int cur, int parent, int dep)
-
-```
-
-<br>
-
-
-
-## ì†ŒìŠ¤ì½”ë“œ
-```cpp
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->ios::sync_with_stdio(0); cout.tie(0); setvbuf(stdout, nullptr, _IOFBF, BUFSIZ);
 #define INF INT32_MAX
@@ -45,10 +12,10 @@ int maxTree[100001][18];
 int minTree[100001][18];
 vector<pair<int, int>> vp[100001];
 
-//ì •ë‹µì„ êµ¬í•˜ëŠ” ë¶€ë¶„
+//Á¤´äÀ» ±¸ÇÏ´Â ºÎºĞ
 inline void LCA(int a, int b) {
 	
-	//ì™¼ìª½ ë…¸ë“œê°€ ê¹Šì´ê°€ ë” ê¹Šì€ ê²½ìš°
+	//¿ŞÂÊ ³ëµå°¡ ±íÀÌ°¡ ´õ ±íÀº °æ¿ì
 	if (depthTree[a] > depthTree[b]) {
 		int dif = log2(depthTree[a] - depthTree[b]);
 
@@ -59,7 +26,7 @@ inline void LCA(int a, int b) {
 		return;
 	}
 
-	//ì˜¤ë¥¸ìª½ ë…¸ë“œê°€ ê¹Šì´ê°€ ë” ê¹Šì€ê²½ìš°
+	//¿À¸¥ÂÊ ³ëµå°¡ ±íÀÌ°¡ ´õ ±íÀº°æ¿ì
 	else if (depthTree[a] < depthTree[b]) {
 		int dif = log2(depthTree[b] - depthTree[a]);
 
@@ -70,7 +37,7 @@ inline void LCA(int a, int b) {
 		return;
 	}
 
-	//ê¹Šì´ê°€ ê°™ì§€ë§Œ ì„œë¡œ ë‹¤ë¥¸ ë…¸ë“œì¼ ê²½ìš°
+	//±íÀÌ°¡ °°Áö¸¸ ¼­·Î ´Ù¸¥ ³ëµåÀÏ °æ¿ì
 	if (a != b) {
 		for (int i = 1; i < 18; ++i) {
 			if (parentTree[a][i] == parentTree[b][i]) {
@@ -87,7 +54,7 @@ inline void LCA(int a, int b) {
 
 }
 
-//ìµœì†Ÿê°’ ë§µí•‘
+//ÃÖ¼Ú°ª ¸ÊÇÎ
 inline void initMinTree(int cur, int dis) {
 	minTree[cur][0] = dis;
 
@@ -102,7 +69,7 @@ inline void initMinTree(int cur, int dis) {
 	}
 }
 
-//ìµœëŒ“ê°’ ë§µí•‘
+//ÃÖ´ñ°ª ¸ÊÇÎ
 inline void initMaxTree(int cur, int dis) {
 	maxTree[cur][0] = dis;
 
@@ -117,7 +84,7 @@ inline void initMaxTree(int cur, int dis) {
 	}
 }
 
-//ë¶€ëª¨ë…¸ë“œ ë§µí•‘
+//ºÎ¸ğ³ëµå ¸ÊÇÎ
 inline void initTree(int cur, int parent, int dep) {
 	parentTree[cur][0] = parent;
 	depthTree[cur] = dep;
@@ -138,7 +105,7 @@ int main() {
 
 	cin >> N;
 
-	//íŠ¸ë¦¬ì˜ ê°„ì„  ì •ë³´ë¥¼ ì €ì¥
+	//Æ®¸®ÀÇ °£¼± Á¤º¸¸¦ ÀúÀå
 	for (int i = 0; i < N - 1; ++i) {
 		int a, b, c;
 		cin >> a >> b >> c;
@@ -147,12 +114,12 @@ int main() {
 		vp[b].push_back({ a,c });
 	}
 
-	//íŠ¸ë¦¬ì •ë³´ ë§µí•‘
+	//Æ®¸®Á¤º¸ ¸ÊÇÎ
 	initTree(1, 1, 1);
 	initMaxTree(1, 0);
 	initMinTree(1, INF);
 
-	//LCAë¥¼ í†µí•˜ì—¬ ì •ë‹µì„ êµ¬í•˜ëŠ” ë¶€ë¶„
+	//LCA¸¦ ÅëÇÏ¿© Á¤´äÀ» ±¸ÇÏ´Â ºÎºĞ
 	cin >> K;
 	for (int i = 0; i < K; ++i) {
 		int a, b;
@@ -166,16 +133,3 @@ int main() {
 
 	return EXIT_SUCCESS;
 }
-```
-
-
-<br/>
-
-
-## ê²°ê³¼ 
-
-| ë©”ëª¨ë¦¬ | ì‹œê°„ |
-| ------ | ---- |
-| 30732KB | 188ms |
-
-
