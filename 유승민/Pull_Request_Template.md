@@ -1,4 +1,4 @@
-## BOJ_3190_G4_뱀
+## BOJ_3176_P4_도로 네트워크
 - LCA, 희소 배열
 - https://www.acmicpc.net/problem/3176
 
