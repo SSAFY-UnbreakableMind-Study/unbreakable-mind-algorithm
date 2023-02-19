@@ -1,24 +1,3 @@
-## PG_L2_택배상자
-- 스택
-- https://school.programmers.co.kr/learn/courses/30/lessons/131704
-
-
-
-## 풀이
-전달받을 리스트와 보관함을 번갈아가며 확인
-이후 동작이 불가능할 경우 종료
-
-~~~java
- // 모두 처리했을 경우 종료
-if(orderindex == order.length) break;
-// 더이상 처리가 불가능할경우 종료
-if(boxlist.isEmpty() && temp == container.peek()) break;
-temp = container.peek();	
-			
-~~~
-
-## 소스코드
-~~~java
 import java.util.Stack;
 
 public class PG_L2_택배상자 {
@@ -65,13 +44,3 @@ public class PG_L2_택배상자 {
 		System.out.println(answer);
 	}
 }
-
-~~~
-
-
-## 결과 
-
-| 메모리  | 시간 |
-|----|----|
-| - KB| -ms|
-
