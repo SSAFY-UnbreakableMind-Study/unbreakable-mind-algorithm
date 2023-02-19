@@ -1,33 +1,54 @@
-## BOJ_3176_P4_도로 네트워크
-- LCA, 희소 배열
-- https://www.acmicpc.net/problem/3176
+## BOJ_5670_P4_휴대폰 자판
+- 문자열, 트리, 트라이
+- https://www.acmicpc.net/problem/5670
 
 
 ## 풀이
 
-희소배열과, 트리에서의DP를 이용하여 2 ^ N 번째에 있는 조상,
-조상까지의 최대, 최소 거리를 구하여 문제를 해결하였습니다.
+트라이 클래스를 잘 만드는게 중요했던 문제로
+클래스 멤버변수로 단어가 끝나는지 체크하는 isEnd 와
+단어 해싱을 위한 map 을 사용하였습니다.
 
 <br>
 
 ```cpp
-//정답을 구하는 부분
-inline void LCA(int a, int b)
+//트라이 클래스
+class Trie {
+	bool isEnd = false;
+	map<char, Trie*> children;
+}
 
-//최솟값 맵핑
-inline void initMinTree(int cur, int dis)
+```
 
-//최댓값 맵핑
-inline void initMaxTree(int cur, int dis)
+이후 어떤 단어든 첫번째 글자는 무조건 입력해줘야 하기 때문에
+checkFirst() 함수를 이용해 따로 체크해준후, 
+두번째 단어부턴 문자열이 끝나거나, 해싱값이 2개 이상일 경우만
+카운트를(여기선 변수명 sum) 1개씩 추가해주었습니다.
 
-//부모노드 맵핑
-inline void initTree(int cur, int parent, int dep)
+<br>
+
+```cpp
+//단어 삽입
+	void insertWords(string& s, int idx) {}
+
+//첫번째 단어는 수동 체크
+	void checkFirst() {}
+
+//두번째 단어 이후 자동 체크
+	void findWords(double sum) {
+		//마지막 단어일 경우 정답횟수 더하고, 버튼 누르는 횟수 더하기
+		if (isEnd) {
+			Ans += sum;
+			sum++;
+		}
+
+		// 해싱값이 2개 이상인경우 버튼누르는 횟수만 더하기
+		else if (children.size() > 1) sum++;
+	}
 
 ```
 
 <br>
-
-
 
 ## 소스코드
 ```cpp
@@ -38,130 +59,81 @@ inline void initTree(int cur, int parent, int dep)
 using namespace std;
 using int64 = int64_t;
 
-int N, K, maxx, minn;
-int depthTree[100001];
-int parentTree[100001][18];
-int maxTree[100001][18];
-int minTree[100001][18];
-vector<pair<int, int>> vp[100001];
+double Ans;
 
-//정답을 구하는 부분
-inline void LCA(int a, int b) {
-	
-	//왼쪽 노드가 깊이가 더 깊은 경우
-	if (depthTree[a] > depthTree[b]) {
-		int dif = log2(depthTree[a] - depthTree[b]);
+//트라이 클래스
+class Trie {
+	bool isEnd = false;
+	map<char, Trie*> children;
 
-		maxx = max(maxx, maxTree[a][dif]);
-		minn = min(minn, minTree[a][dif]);
+public:
+	//단어 삽입
+	void insertWords(string& s, int idx) {
+		if (s.size() == idx) {
+			isEnd = true;
+			return;
+		}
 
-		LCA(parentTree[a][dif], b);
-		return;
+		if (children.find(s[idx]) == children.end()) {
+			children[s[idx]] = new Trie();
+		}
+
+		children[s[idx]]->insertWords(s, idx + 1);
 	}
 
-	//오른쪽 노드가 깊이가 더 깊은경우
-	else if (depthTree[a] < depthTree[b]) {
-		int dif = log2(depthTree[b] - depthTree[a]);
+	//첫번째 단어는 수동 체크
+	void checkFirst() {
+		if (isEnd) Ans++;
 
-		maxx = max(maxx, maxTree[b][dif]);
-		minn = min(minn, minTree[b][dif]);
-
-		LCA(a, parentTree[b][dif]);
-		return;
-	}
-
-	//깊이가 같지만 서로 다른 노드일 경우
-	if (a != b) {
-		for (int i = 1; i < 18; ++i) {
-			if (parentTree[a][i] == parentTree[b][i]) {
-				maxx = max(maxx, maxTree[a][i - 1]);
-				maxx = max(maxx, maxTree[b][i - 1]);
-				minn = min(minn, minTree[a][i - 1]);
-				minn = min(minn, minTree[b][i - 1]);
-
-				LCA(parentTree[a][i - 1], parentTree[b][i - 1]);
-				return;
-			}
+		for (auto& iter : children) {
+			iter.second->findWords(1);
 		}
 	}
 
-}
+	//두번째 단어 이후 자동 체크
+	void findWords(double sum) {
 
-//최솟값 맵핑
-inline void initMinTree(int cur, int dis) {
-	minTree[cur][0] = dis;
+		//마지막 단어일 경우 정답횟수 더하고, 버튼 누르는 횟수 더하기
+		if (isEnd) {
+			Ans += sum;
+			sum++;
+		}
 
-	for (int i = 1; i < 18; ++i) {
-		minTree[cur][i] = min(minTree[parentTree[cur][i - 1]][i - 1], minTree[cur][i - 1]);
+		// 해싱값이 2개 이상인경우 버튼누르는 횟수만 더하기
+		else if (children.size() > 1) sum++;
+
+		//다음단어 탐색
+		for (auto& iter : children) {
+			iter.second->findWords(sum);
+		}
+
 	}
 
-	for (auto& iter : vp[cur]) {
-		if (iter.first == parentTree[cur][0]) continue;
-
-		initMinTree(iter.first, iter.second);
-	}
-}
-
-//최댓값 맵핑
-inline void initMaxTree(int cur, int dis) {
-	maxTree[cur][0] = dis;
-
-	for (int i = 1; i < 18; ++i) {
-		maxTree[cur][i] = max(maxTree[parentTree[cur][i - 1]][i - 1], maxTree[cur][i - 1]);
-	}
-
-	for (auto& iter : vp[cur]) {
-		if (iter.first == parentTree[cur][0]) continue;
-
-		initMaxTree(iter.first, iter.second);
-	}
-}
-
-//부모노드 맵핑
-inline void initTree(int cur, int parent, int dep) {
-	parentTree[cur][0] = parent;
-	depthTree[cur] = dep;
-
-	for (int i = 1; i < 18; ++i) {
-		parentTree[cur][i] = parentTree[parentTree[cur][i - 1]][i - 1];
-	}
-
-	for (auto& iter : vp[cur]) {
-		if (iter.first == parent) continue;
-
-		initTree(iter.first, cur, dep + 1);
-	}
-}
+};
 
 int main() {
 	fastio;
 
-	cin >> N;
+	int N;
+	while (cin >> N) {
 
-	//트리의 간선 정보를 저장
-	for (int i = 0; i < N - 1; ++i) {
-		int a, b, c;
-		cin >> a >> b >> c;
+		Trie* root = new Trie();
 
-		vp[a].push_back({ b, c });
-		vp[b].push_back({ a,c });
-	}
+		//단어 입력받기
+		for (int i = 0; i < N; ++i) {
+			string s;
+			cin >> s;
+			
+			root->insertWords(s, 0);
+		}
 
-	//트리정보 맵핑
-	initTree(1, 1, 1);
-	initMaxTree(1, 0);
-	initMinTree(1, INF);
+		Ans = 0;
 
-	//LCA를 통하여 정답을 구하는 부분
-	cin >> K;
-	for (int i = 0; i < K; ++i) {
-		int a, b;
-		cin >> a >> b;
+		//몇번 눌러야 하는지 체크
+		root->checkFirst();
 
-		minn = INF; maxx = 0;
-		LCA(a, b);
+		printf("%.2f \n", Ans / N);
 
-		cout << minn << " " << maxx << "\n";
 	}
 
 	return EXIT_SUCCESS;
@@ -176,6 +148,6 @@ int main() {
 
 | 메모리 | 시간 |
 | ------ | ---- |
-| 30732KB | 188ms |
+| 123468KB | 388ms |
 
 
