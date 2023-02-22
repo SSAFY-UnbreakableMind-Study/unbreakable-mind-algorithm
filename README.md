@@ -122,3 +122,10 @@ static void findTarget(){
 | BOJ | 3190 | [뱀](https://www.acmicpc.net/problem/3190) | 구현 | G4 |
 | PG | 연습문제 | [택배상자](https://school.programmers.co.kr/learn/courses/30/lessons/131704) | 스택 | Lv2 |
 
+
+### 🏃🏻‍♂️week 5
+
+|Type | 문제 | 제목 | 유형 | 등급|
+|--- | --- | --- | --- | ---|
+| BOJ | 1715 | [카드 정렬하기](https://www.acmicpc.net/problem/1715) | 그리디 | G4 |
+| BOJ | 2447 | [주사위 굴리기](https://www.acmicpc.net/problem/14499) | 구현, 시뮬레이션 | G4 |
