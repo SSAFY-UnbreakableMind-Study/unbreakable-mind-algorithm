@@ -1,20 +1,31 @@
-## PG*L3*네트워크
+## PG*L3*단어변환
 
 - DFS, BFS
-- https://school.programmers.co.kr/learn/courses/30/lessons/43162
+- https://school.programmers.co.kr/learn/courses/30/lessons/43163?language=java
 
 ## 풀이
 
-- 2차원 배열을 활용한 dfs, bfs 문제
-- 방문한 적 없는 모든 노드에서 시작하는 dfs를 호출하며 그때마다 count++
+- 시작 단어에서 출발하여 주어진 단어 중 알파벳이 하나만 다른 단어와 교환하면서 타겟 단어를 만드는 최소 횟수를 구하는 문제
+- dfs가 타고 간 깊이를 기록하며 방문하지 않은 노드 중에 알파벳이 하나만 다른 애를 탐색하며 찾기
 
 ```java
 
-for (int i=0; i<n; i++) {
-	if (!isVisited[i]) {
-		dfs(i);
-		answer++;
-	}
+static void dfs (String cur, int depth) {
+    if (target.equals(cur)) {
+        answer = depth<answer?depth:answer;
+        return;
+    }
+
+    for (int i=0; i<words.length; i++) {
+        if (!isVisited[i]) {                //방문한 적 없고
+            if (getDiff(cur, words[i])) {   //알파벳이 하나만 다른 애 골라서
+                isVisited[i] = true;
+                dfs(words[i], depth+1);
+                isVisited[i] = false;
+                //안에서 방문 체크 할 때는 다시 되돌려주기
+            }
+        }
+    }
 }
 
 ```
@@ -22,35 +33,47 @@ for (int i=0; i<n; i++) {
 ## 소스코드
 
 ```java
-import java.util.*;
-
 class Solution {
-    static int N;
-    static int[][] coms;
-    static int answer=0;
+    static String[] words;
+    static String begin, target;
     static boolean[] isVisited;
-    public int solution(int n, int[][] computers) {
-        N=n;
-        coms = computers;
-        isVisited = new boolean[N];
+    static int answer = Integer.MAX_VALUE;
 
-        for (int i=0; i<n; i++) {
-            if (!isVisited[i]) {
-                dfs(i);
-                answer++;
-            }
-        }
-
+    public int solution(String b, String t, String[] temp) {
+        begin = b;
+        target = t;
+        words = temp;
+        isVisited = new boolean[words.length];
+        dfs(begin, 0);
+        if (answer==Integer.MAX_VALUE) answer=0;
         return answer;
     }
-    static void dfs(int cur) {
-        isVisited[cur] = true;
+    static void dfs (String cur, int depth) {
+        if (target.equals(cur)) {
+            answer = depth<answer?depth:answer;
+            return;
+        }
 
-        for (int i=0; i<N; i++) {
-            if (coms[cur][i]==1 && !isVisited[i]) {
-                dfs(i);
+        for (int i=0; i<words.length; i++) {
+            if (!isVisited[i]) {                //방문한 적 없고
+                if (getDiff(cur, words[i])) {   //알파벳이 하나만 다른 애 골라서
+                    isVisited[i] = true;
+                    dfs(words[i], depth+1);
+                    isVisited[i] = false;
+                    //안에서 방문 체크 할 때는 다시 되돌려주기
+                }
             }
         }
+    }
+    //두 단어 간에 알파벳 다른 개수가 1개면 true 아니면 false
+    static boolean getDiff(String from, String to) {
+        int diff=0;
+        for (int i=0; i<from.length(); i++) {
+            if (from.charAt(i)!=to.charAt(i)) {
+                diff++;
+            }
+        }
+        return diff==1?true:false;
     }
 }
 ```
@@ -59,4 +82,8 @@ class Solution {
 
 | 메모리  | 시간    |
 | ------- | ------- |
-| 74.2 MB | 0.02 ms |
+| 72.8 MB | 0.03 ms |
+| 81.7 MB | 0.07 ms |
+| 73.7 MB | 0.47 ms |
+| 76.0 MB | 0.03 ms |
+| 76.2 MB | 0.04 ms |
