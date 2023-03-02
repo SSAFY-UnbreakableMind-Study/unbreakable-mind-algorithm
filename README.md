@@ -129,3 +129,11 @@ static void findTarget(){
 |--- | --- | --- | --- | ---|
 | BOJ | 1715 | [카드 정렬하기](https://www.acmicpc.net/problem/1715) | 그리디 | G4 |
 | BOJ | 14499 | [주사위 굴리기](https://www.acmicpc.net/problem/14499) | 구현, 시뮬레이션 | G4 |
+
+
+### 🏃🏻‍♂️week 6
+
+|Type | 문제 | 제목 | 유형 | 등급|
+|--- | --- | --- | --- | ---|
+| SWEA | 14510 | [나무 높이](https://swexpertacademy.com/main/code/userProblem/userProblemDetail.do?contestProbId=AYFofW8qpXYDFAR4&) | 수학 | D2 |
+| SWEA | 1767 | [프로세서 연결하기](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV4suNtaXFEDFAUf) | 구현, 시뮬레이션 | SW Test |
