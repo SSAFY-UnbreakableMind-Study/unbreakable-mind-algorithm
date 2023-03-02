@@ -128,4 +128,4 @@ static void findTarget(){
 |Type | 문제 | 제목 | 유형 | 등급|
 |--- | --- | --- | --- | ---|
 | BOJ | 1715 | [카드 정렬하기](https://www.acmicpc.net/problem/1715) | 그리디 | G4 |
-| BOJ | 2447 | [주사위 굴리기](https://www.acmicpc.net/problem/14499) | 구현, 시뮬레이션 | G4 |
+| BOJ | 14499 | [주사위 굴리기](https://www.acmicpc.net/problem/14499) | 구현, 시뮬레이션 | G4 |
