@@ -1,23 +1,3 @@
-## BOJ_1715_G4_카드정렬하기
-- 우선순위 큐
-- https://www.acmicpc.net/problem/1715
-
-
-
-## 풀이
-우선순위 큐에 카드를 모두 넣고 두개 꺼내서 합산하여 계산
-
-~~~java
-while(queue.size() > 1) {
-			tempsum = queue.poll()+queue.poll();
-			listsum += tempsum;
-			queue.add(tempsum);
-		}	
-			
-~~~
-
-## 소스코드
-~~~java
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,14 +26,3 @@ public class Main {
 	}
 
 }
-
-
-~~~
-
-
-## 결과 
-
-| 메모리  | 시간 |
-|----|----|
-| 25448 KB| 384ms|
-
