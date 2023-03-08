@@ -1,24 +1,3 @@
-## D2_14510_나무높이_유호재
-- 구현
-- https://swexpertacademy.com/main/code/userProblem/userProblemDetail.do?contestProbId=AYFofW8qpXYDFAR4
-
-
-
-## 풀이
-나무를 입력받은 후 날짜를 조정하며 계산
--> 하루를 모으면 이틀이되지만, 이틀은 하루로 나눌 수 없음
-
-~~~java
-for(int i = 0; i < n; i++) {
-				int temp = maxtree - trees[i];
-				even += temp / 2;
-				odd += temp % 2;
-			}	
-			
-~~~
-
-## 소스코드
-~~~java
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -65,15 +44,3 @@ public class D2_14510_나무높이_유호재{
 		}
 	}
 }
-
-
-
-~~~
-
-
-## 결과 
-
-| 메모리  | 시간 |
-|----|----|
-| 20,332 KB| 118ms|
-
