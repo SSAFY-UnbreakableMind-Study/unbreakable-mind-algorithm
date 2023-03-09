@@ -50,21 +50,21 @@ inline matrix splitMatrix(matrix& m, int square) {
 int main() {
 	fastio;
 
-	//ÁöµµÁÖ±â, °ÅÁ¡ °³¼ö, È°µ¿ ½Ã°£ 
+	//ì§€ë„ì£¼ê¸°, ê±°ì  ê°œìˆ˜, í™œë™ ì‹œê°„ 
 	cin >> T >> N >> D;
 
 	for (int i = 1; i <= N; ++i) {
 		ans.Arr[i][i] = mat[0].Arr[i][i] = 1;
 	}
 
-	//Áöµµ ÁÖ±â
+	//ì§€ë„ ì£¼ê¸°
 	for (int i = 1; i <= T; ++i) {
 
-		//»ý¼ºµÇ´Â Åë·Î °³¼ö
+		//ìƒì„±ë˜ëŠ” í†µë¡œ ê°œìˆ˜
 		int M;
 		cin >> M;
 
-		//Åë·Î ¸ÊÇÎ
+		//í†µë¡œ ë§µí•‘
 		for (int j = 1; j <= M; ++j) {
 			int start, end;
 			int64 dis;
@@ -75,10 +75,10 @@ int main() {
 		}
 	}
 
-	//°ÅµìÁ¦°öÀ» À§ÇÑ °è»ê
+	//ê±°ë“­ì œê³±ì„ ìœ„í•œ ê³„ì‚°
 	int divN = D / T, modN = D % T;
 
-	//»çÀÌÅ¬ÀÌ ÇÑ¹ø ÀÌ»óÀÏ ‹š
+	//ì‚¬ì´í´ì´ í•œë²ˆ ì´ìƒì¼ Â‹Âš
 	if (divN) {
 		for (int i = 1; i <= T; ++i) {
 			for (auto& iter : container[i]) {
@@ -93,7 +93,7 @@ int main() {
 		ans = ans * mat[T];
 	}
 
-	//»çÀÌÅ¬ÀÌ ÇÑ¹ø ¹Ì¸¸ÀÏ ¶§
+	//ì‚¬ì´í´ì´ í•œë²ˆ ë¯¸ë§Œì¼ ë•Œ
 	else {
 		for (int i = 1; i <= modN; ++i) {
 			for (auto& iter : container[i]) {
@@ -114,4 +114,4 @@ int main() {
 	}
 
 	return EXIT_SUCCESS;
-}
+} 
