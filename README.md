@@ -139,7 +139,7 @@ static void findTarget(){
 | SWEA | 1767 | [프로세서 연결하기](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV4suNtaXFEDFAUf) | 구현, 시뮬레이션 | SW Test |
 
 
-### 🏃🏻‍♂️week 6
+### 🏃🏻‍♂️week 7
 
 |Type | 문제 | 제목 | 유형 | 등급|
 |--- | --- | --- | --- | ---|
