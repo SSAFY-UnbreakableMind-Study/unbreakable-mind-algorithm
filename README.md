@@ -137,3 +137,11 @@ static void findTarget(){
 |--- | --- | --- | --- | ---|
 | SWEA | 14510 | [나무 높이](https://swexpertacademy.com/main/code/userProblem/userProblemDetail.do?contestProbId=AYFofW8qpXYDFAR4&) | 수학 | D2 |
 | SWEA | 1767 | [프로세서 연결하기](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV4suNtaXFEDFAUf) | 구현, 시뮬레이션 | SW Test |
+
+
+### 🏃🏻‍♂️week 6
+
+|Type | 문제 | 제목 | 유형 | 등급|
+|--- | --- | --- | --- | ---|
+| BOJ | 14499 | [구슬 탈출 2](https://www.acmicpc.net/problem/13460) | 구현, 시뮬레이션 | G1 |
+| BOJ | 14499 | [네트워크 연결](https://www.acmicpc.net/problem/1922) | 그래프 이론, 최소 스패닝 트리 | G4 |
