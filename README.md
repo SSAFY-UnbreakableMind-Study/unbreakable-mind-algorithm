@@ -153,3 +153,11 @@ static void findTarget(){
 |--- | --- | --- | --- | ---|
 | BOJ | 12015 | [가장 긴 증가하는 부분 수열 2](https://www.acmicpc.net/problem/12015) | 이분 탐색 | G2 |
 | BOJ | 14003 | [가장 긴 증가하는 부분 수열 5](https://www.acmicpc.net/problem/14003) | 이분 탐색, 메모제이션 | P5 |
+
+
+### 🏃🏻‍♂️week 8
+
+|Type | 문제 | 제목 | 유형 | 등급|
+|--- | --- | --- | --- | ---|
+| BOJ | 17411 | [가장 긴 증가하는 부분 수열 6](https://www.acmicpc.net/problem/17411) | 이분 탐색, 메모제이션 | P2 |
+| BOJ | 1787 | [문자열의 주기 예측](https://www.acmicpc.net/problem/1787) | KMP, 다이나믹 프로그래밍 | P2 |
