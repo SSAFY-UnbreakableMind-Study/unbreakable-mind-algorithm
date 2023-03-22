@@ -155,7 +155,7 @@ static void findTarget(){
 | BOJ | 14003 | [가장 긴 증가하는 부분 수열 5](https://www.acmicpc.net/problem/14003) | 이분 탐색, 메모제이션 | P5 |
 
 
-### 🏃🏻‍♂️week 8
+### 🏃🏻‍♂️week 9
 
 |Type | 문제 | 제목 | 유형 | 등급|
 |--- | --- | --- | --- | ---|
