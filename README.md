@@ -145,3 +145,11 @@ static void findTarget(){
 |--- | --- | --- | --- | ---|
 | BOJ | 14499 | [구슬 탈출 2](https://www.acmicpc.net/problem/13460) | 구현, 시뮬레이션 | G1 |
 | BOJ | 14499 | [네트워크 연결](https://www.acmicpc.net/problem/1922) | 그래프 이론, 최소 스패닝 트리 | G4 |
+
+
+### 🏃🏻‍♂️week 8
+
+|Type | 문제 | 제목 | 유형 | 등급|
+|--- | --- | --- | --- | ---|
+| BOJ | 12015 | [가장 긴 증가하는 부분 수열 2](https://www.acmicpc.net/problem/12015) | 이분 탐색 | G2 |
+| BOJ | 14003 | [가장 긴 증가하는 부분 수열 5](https://www.acmicpc.net/problem/14003) | 이분 탐색, 메모제이션 | P5 |
